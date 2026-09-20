@@ -123,11 +123,23 @@ averaged. `completed` and `failed` are both recorded.
   it equal to `max_loras` when unset. With N never exceeding `max_loras`,
   the LRU eviction path never runs, so what is measured is multi-tenancy
   and not adapter swapping.
-- **`max_lora_rank` fixed.** It is a dimension of the preallocated
-  tensors (same lines as above); varying it would change cost for
-  reasons orthogonal to the question.
+- **One rank, shared by every adapter.** vLLM does not require this:
+  `vllm/lora/peft_helper.py:128` rejects an adapter only when its rank
+  *exceeds* `max_lora_rank`, so adapters of mixed rank coexist happily.
+  The constraint is this design's own. Slots are preallocated at
+  `max_lora_rank` so memory would not move, but the kernel work does
+  depend on each adapter's actual rank, and a set of mixed ranks would
+  vary cost for a reason that has nothing to do with multi-tenancy.
+  `max_lora_rank` itself is one of `Literal[1, 8, 16, 32, 64, 128, 256,
+  320, 512]` (`vllm/config/lora.py:27`), default 16.
 - **Fixed target modules, one base model, adapters loaded before load
   begins.**
+
+Two loading constraints the adapter selection must satisfy, read at the
+same revision: an adapter whose rank exceeds `max_lora_rank` is rejected
+(`peft_helper.py:128`), and an adapter whose `bias` is anything but
+`"none"` contributes "Adapter bias is not supported." to an error list
+that is then raised as a `ValueError` (`peft_helper.py:133-136`).
 
 ## Factors
 
