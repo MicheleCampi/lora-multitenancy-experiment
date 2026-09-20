@@ -20,6 +20,25 @@ Three projects, two languages, three teams. Each holds the per-adapter
 counts internally and each drops them at the same step — so a router
 developed against the simulator cannot see them even in development.
 
+## Reproduce the premise in a minute
+
+No GPU, no weights, no adapters downloaded. Build
+[llm-d-inference-sim](https://github.com/llm-d/llm-d-inference-sim)
+with `make build`, then:
+
+```
+./harness/reproduce-blind-scorer.sh
+```
+
+Eight adapters are loaded and the metric reads
+`running_lora_adapters=""`. Six requests go to one adapter and one
+each to two others, and the three label sets are indistinguishable. At
+rest every combination seen is still exposed, timestamps identical.
+
+The script reproduces the blindness, not its cost: the simulator's
+latencies are declared rather than computed. What it costs is what the
+campaign is for.
+
 This repository measures whether that blindness costs anything.
 
 **If imbalance costs**, `loraaffinity` is choosing between endpoints on
