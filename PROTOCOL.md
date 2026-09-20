@@ -20,8 +20,17 @@ Read at the revisions below, on 2026-09-20:
 | vLLM exports | `",".join(...keys())` — the counts are dropped | `vllm/v1/metrics/loggers.py:1100` |
 | llm-d-router receives | `m[trimmed] = 0` into a `map[string]int` | `extractor.go:312` |
 | llm-d-router decides | `_, active := m.ActiveModels[request.TargetModel]` | `lora_affinity.go:89` |
+| the simulator repeats it | `strings.Join(slices.Collect(maps.Keys(snap.Running)), ",")` | `pkg/engine/vllm/metrics.go:815` |
 
-vLLM at `27757dde02`, llm-d-router at `5367d054`.
+vLLM at `27757dde02`, llm-d-router at `5367d054`,
+llm-d-inference-sim at `e924683`.
+
+Three projects, two languages, three teams. Each holds the per-adapter
+counts internally — `dict[str, int]` in vLLM, `map[string]int` in both Go
+components — and each drops them at the same step. The simulator
+inherited the gap by faithfully imitating vLLM, which means a router
+developed against the simulator cannot see the counts even in
+development. A complete fix is not one repository's.
 
 The type survives the whole way. `ActiveModels` is a `map[string]int`
 with room for a weight per adapter, and every entry in it is zero. The

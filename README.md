@@ -11,8 +11,14 @@ decision is made.
 | vLLM drops it | `",".join(...keys())` keeps only the names | `vllm/v1/metrics/loggers.py:1100` |
 | the router stores zeros | `m[trimmed] = 0` into a `map[string]int` | `extractor.go:312` |
 | the scorer discards even that | `_, active := m.ActiveModels[...]` | `lora_affinity.go:89` |
+| the simulator repeats it | `maps.Keys(snap.Running)` joined by commas | `pkg/engine/vllm/metrics.go:815` |
 
-vLLM at `27757dde02`, llm-d-router at `5367d054`, both read 2026-09-20.
+vLLM at `27757dde02`, llm-d-router at `5367d054`, llm-d-inference-sim at
+`e924683`, all read 2026-09-20.
+
+Three projects, two languages, three teams. Each holds the per-adapter
+counts internally and each drops them at the same step — so a router
+developed against the simulator cannot see them even in development.
 
 This repository measures whether that blindness costs anything.
 
