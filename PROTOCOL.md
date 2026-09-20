@@ -53,6 +53,55 @@ tens of percent, 5% is a slack test; if it costs three, 5% falsifies H1
 by construction. The dry run measures the margin, and the threshold is
 revisited once — before the campaign, never after seeing a cell.
 
+## Response variables
+
+Reported in the vocabulary the field already reads, so the result is
+comparable without translation. The names are those of
+`vllm/benchmarks/serve.py:327` at `e378275a8f`:
+
+- **Latency**: `ttft`, `tpot`, `itl`, `e2el`, each with mean, median and
+  percentiles.
+- **Throughput**: `request_throughput`, `output_throughput`,
+  `total_token_throughput`.
+
+`tpot` and `itl` are not the same measurement and both are kept. `tpot`
+is a per-request mean — `latency_minus_ttft / (output_len - 1)`, line
+627 — so it flattens whatever happens between individual tokens. `itl`
+is the list of gaps between consecutive tokens, concatenated across
+requests (line 631). If multi-tenancy costs occasional stalls rather
+than a uniform slowdown, `tpot` hides them and the tail percentiles of
+`itl` show them. H2 is read there first.
+
+`goodput` is not reported. It is computed only when a caller supplies
+`goodput_config_dict` (lines 578, 639) with `ttft` or `tpot` keys (643,
+648) — that is, against an SLO the operator declares. One chosen here
+would be an arbitrary parameter deciding the outcome. The distributions
+are published instead, so a reader with an SLO can apply it.
+
+### The layer this campaign adds
+
+None of the above says what the work costs in energy. Energy per
+generated token, and tokens per joule, come from inferscope's NVML
+counter and are the reason this campaign exists rather than being a
+rerun of a published benchmark.
+
+The relation between the two layers is the finding, not either alone:
+throughput falling while tokens-per-joule stays flat means multi-tenancy
+costs time and not energy — opposite conclusions on a rented node and on
+owned hardware. agentic-kv already met that split: generation cost held at
+$0.00911-0.00916 per trajectory across all fifteen cells, a 0.5% band,
+while $/M token moved +56%. All of that difference was waiting, not
+generating.
+
+A dollar figure, if reported, is derived from wall-clock time times a
+declared rate and is labelled as derived. On a rented node it is
+throughput wearing a currency sign.
+
+### Discard criterion
+
+A cell with any `failed` request is not comparable and is rerun, not
+averaged. `completed` and `failed` are both recorded.
+
 ## Invariants, and why each one is held
 
 - **`enforce_eager`.** `vllm/config/lora.py:68` declares
