@@ -2,8 +2,56 @@
 
 Written 2026-09-20, before any data was collected and before a node was
 booked. Every configuration fact below was read from vLLM at
-`origin/main` `e378275a8f` (2026-09-20); the line references are to that
+`origin/main` `27757dde02` (2026-09-20); the line references are to that
 revision.
+
+## What this measures, and for whom
+
+A routing component in production scores two pods identically when one
+serves an adapter with 90% of its traffic and the other with 5%. It has
+no way to tell them apart, because the number that would is computed and
+then dropped three times along the way.
+
+Read at the revisions below, on 2026-09-20:
+
+| Where | What happens | Line |
+|---|---|---|
+| vLLM computes | `running_lora_adapters[name] = len(stats.running)` | `vllm/v1/metrics/stats.py:644` |
+| vLLM exports | `",".join(...keys())` — the counts are dropped | `vllm/v1/metrics/loggers.py:1100` |
+| llm-d-router receives | `m[trimmed] = 0` into a `map[string]int` | `extractor.go:312` |
+| llm-d-router decides | `_, active := m.ActiveModels[request.TargetModel]` | `lora_affinity.go:89` |
+
+vLLM at `27757dde02`, llm-d-router at `5367d054`.
+
+The type survives the whole way. `ActiveModels` is a `map[string]int`
+with room for a weight per adapter, and every entry in it is zero. The
+scorer then discards the value with `_` and uses the map as a set: 1.0
+if the adapter is active on that endpoint, 0.8 if there is spare
+capacity (`unionCount < MaxActiveModels`), 0.6 if waiting, 0.0
+otherwise.
+
+None of the three components is written badly. Each one is reasonable
+given what reaches it. The question is whether what does not reach it
+matters.
+
+### Both answers are worth having
+
+**If imbalance costs**, `loraaffinity` is choosing between endpoints
+that differ on a dimension it cannot see, and the place to propose a fix
+is already marked: the scorer's own comment says "This may change later
+if vLLM adds native support" (`lora_affinity.go:92-94`).
+
+**If imbalance does not cost**, three independent components were right
+to drop the signal, and a question left open since June — issue
+vllm-project/vllm#45325, still unanswered by any maintainer and marked
+stale — has an empirical answer.
+
+### What this is not
+
+One A10, synthetic load, no real tenants. This measures a decision
+operators face, on hardware they use, under conditions stated in full
+below. It is not a production deployment and does not claim to
+generalise beyond the configuration it names.
 
 ## Question
 
@@ -57,7 +105,7 @@ revisited once — before the campaign, never after seeing a cell.
 
 Reported in the vocabulary the field already reads, so the result is
 comparable without translation. The names are those of
-`vllm/benchmarks/serve.py:327` at `e378275a8f`:
+`vllm/benchmarks/serve.py:327` at `27757dde02`:
 
 - **Latency**: `ttft`, `tpot`, `itl`, `e2el`, each with mean, median and
   percentiles.
