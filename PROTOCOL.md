@@ -319,6 +319,34 @@ That is a separate experiment with a separate design.
 `min_tokens` is left at its default: with `ignore_eos` set, generation
 does not stop before the cap, so a floor would constrain nothing.
 
+## The load generator
+
+vLLM's own serving benchmark drives the campaign: `vllm/benchmarks/serve.py`
+at `27757dde02`. It already routes requests across adapters — `lora_modules`
+with `lora_assignment` of `round-robin` or `random` (lines 805-808), and per
+request `req_model_id = req_lora_module` (line 1063). Using it means the
+response variables are computed by the same code that computes them for
+every published vLLM benchmark, rather than by something similar written
+here.
+
+**Imbalance comes from the list, not from a patch.** `lora_modules_list =
+list(lora_modules)` does not deduplicate (line 922), and both modes consume
+it as given: round-robin indexes it with `i % len(...)` (line 927), random
+draws from it with `random.choice` (line 934). An adapter repeated six times
+in an eight-entry list therefore receives six times the requests. No change
+to the harness is needed.
+
+**Round-robin for both arms.** It is deterministic, so the realised split is
+the declared one rather than the declared one in expectation. With `random`
+a short cell could realise proportions other than those intended, adding a
+quantity to check afterwards instead of one fixed in advance.
+
+**What this shape of imbalance is not.** Round-robin interleaves: six
+requests for one adapter among eight entries arrive spread through the
+cycle, not in a burst. This varies the volume per adapter, not the temporal
+pattern. A fleet where one tenant sends bursts while another trickles is a
+different question and this design does not answer it.
+
 ## Factors
 
 | Factor | Levels | Serves |
