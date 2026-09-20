@@ -224,7 +224,56 @@ node.
   (`peft_helper.py:133-136`);
 - rank not exceeding `max_lora_rank` (`peft_helper.py:128`).
 
-The eight are named in this document before the first cell runs.
+### The eight, pinned
+
+Selected from the 60 most-downloaded adapters published against this
+base, of which 41 declare `library_name: peft` and 36 have a readable
+`adapter_config.json` (four return 404, one is gated). More exist: the
+query returns results past its limit, so this is a sample of the head,
+not a census.
+
+All 36 carry `bias: none`, so that criterion excluded nobody. Grouping
+by `(r, sorted(target_modules))` gives one group large enough: **r=16
+over all seven linear projections** — `q_proj, k_proj, v_proj, o_proj,
+gate_proj, up_proj, down_proj` — with 14 adapters from 11 distinct
+authors.
+
+Eight are taken, one per author. Three `Jayi2424` entries are variants
+of one training run and a second `namanadep` is a sibling of the first:
+variants of the same work are not independent tenants. Every weight
+file is 154.1 MiB, identical across all of them, which is what equal
+rank and equal module set predict.
+
+| Adapter | Revision |
+|---|---|
+| `codewithdark/mlpr-qwen2.5-7b-instruct-50ep-adaptive` | `3d55449e` |
+| `namanadep/Qwen2.5-7B-Manus-Distill` | `097382c8` |
+| `Manikanta23/qwen2.5-7b-rtl-vlsi-lora` | `af13b834` |
+| `MirzaJunaid/Amna-AI` | `873d03b5` |
+| `Tamir39/qwen2_5-7b-vietnam-tax-lora` | `4b46d018` |
+| `millat/Qwen2.5-7B-BDLAW-LoRA` | `73dc7a0c` |
+| `keer2004ks/ade-lora-adapter` | `195ae471` |
+| `ritam-05/qwen2.5-7b-sql-specialist` | `0505bdf6` |
+
+Reserves, same group, if one proves unloadable:
+`diegogs1451/qwen2.5-7B-Instruct-dUO-finetuned-20260706-3epochs` and
+`vidyaganga/slytherin-loyalty-organism-v21`.
+
+**Pinned by revision, not by name.** One of the eight was modified on
+the day it was selected. A name resolves to whatever the author last
+pushed, so a campaign naming only names would measure adapters that
+are not the ones chosen.
+
+**Repository root, not checkpoints.** Two of the eight also publish
+intermediate checkpoints under `checkpoint-*/`, and one reserve
+publishes a `dpo/` variant at half the size — a different shape. Only
+the root `adapter_model.safetensors` is loaded.
+
+`lora_alpha` varies across the group (16 and 32) and is deliberately
+not a selection criterion: vLLM folds the scaling into the weights once
+at load — `self.lora_b *= self.scaling` then `self.scaling = 1`
+(`vllm/lora/lora_weights.py:41-42`) — so no multiplication survives to
+inference time and kernel cost is unaffected.
 
 ## The load, and what holding it fixed costs
 
