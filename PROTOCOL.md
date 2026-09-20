@@ -189,6 +189,78 @@ same revision: an adapter whose rank exceeds `max_lora_rank` is rejected
 `"none"` contributes "Adapter bias is not supported." to an error list
 that is then raised as a `ValueError` (`peft_helper.py:133-136`).
 
+## Configuration
+
+**Base model: `Qwen/Qwen2.5-7B-Instruct`.** Three reasons, none of them
+availability — the Hugging Face API returns adapters against this base
+past the query limit, as it does for Mistral 7B, Llama 3.1 8B and Qwen
+2.5 3B, so the choice is not forced by scarcity.
+
+- It is the model in inferscope's canonical vLLM fixture
+  (`crates/is-metrics/tests/fixtures/vllm-prometheus-client-exposition.txt`),
+  so the instrument has already been exercised against this exposition.
+- It is the family used in earlier campaigns in this portfolio, which
+  makes the numbers comparable with them rather than free-standing.
+- Llama is gated, which has already constrained one earlier choice.
+
+7B on a 24 GB A10 is deliberately tight: the published safetensors
+total 14.19 GiB (summed from the Hugging Face model API), leaving the
+rest for KV cache and eight preallocated LoRA slots. A smaller base
+would leave more headroom and measure a less representative case.
+
+**Declared fallback.** If the dry run shows that eight slots plus the
+KV cache do not fit, the base drops to `Qwen/Qwen2.5-3B-Instruct`,
+which the same query shows has adapters past the limit too. Recorded
+here so the fallback is a plan rather than an improvisation on a paid
+node.
+
+**Adapter selection criteria**, to be satisfied before any is named:
+
+- `library_name: peft` — the base-model filter also returns quantised
+  checkpoints that merely declare this base, which are not adapters;
+- one rank shared by all eight, read from each `adapter_config.json`
+  rather than from the model card;
+- `bias: none`, since an adapter carrying a bias is refused
+  (`peft_helper.py:133-136`);
+- rank not exceeding `max_lora_rank` (`peft_helper.py:128`).
+
+The eight are named in this document before the first cell runs.
+
+## The load, and what holding it fixed costs
+
+Every request carries the same prompt and generates the same number of
+tokens, whichever adapter serves it: `ignore_eos=True` with a fixed
+`max_tokens`. Both are exposed by vLLM's own serving benchmark
+(`vllm/benchmarks/serve.py:802`, passed through to the request payload
+in `lib/endpoint_request_func.py:135-136`), and `ignore_eos=True` is
+what `vllm/benchmarks/latency.py:100` already does when measuring
+latency.
+
+The reason is that adapters differ by task. The public adapters
+published against this base cover materials analysis, Vietnamese law,
+physics in Bengali, IELTS essay writing and more; whichever eight are
+selected, each would answer its own natural prompt with a different
+output length.
+Output length drives `tpot`, `itl` and throughput directly, so letting
+it vary would fold the difference between tasks into the difference
+this campaign attributes to multi-tenancy. With `ignore_eos` the
+generated length is identical in every cell and the only thing that
+changes is how many adapters serve the same work.
+
+**What that costs, stated here rather than found later.** The answers
+are nonsense: an adapter trained on Vietnamese law is being asked
+whatever the shared prompt says, and forced to keep generating past its
+own stopping point. Computational cost does not depend on the answer
+being sensible, which is why this is sound for the question asked — but
+it means the campaign measures multi-tenancy **at equal generative
+work**, not multi-tenancy as deployed, where different tenants send
+different traffic with different shapes. A result here does not carry
+to a fleet where adapter A answers in 30 tokens and adapter B in 800.
+That is a separate experiment with a separate design.
+
+`min_tokens` is left at its default: with `ignore_eos` set, generation
+does not stop before the cap, so a floor would constrain nothing.
+
 ## Factors
 
 | Factor | Levels | Serves |
