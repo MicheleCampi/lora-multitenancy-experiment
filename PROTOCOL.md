@@ -200,6 +200,38 @@ that is then raised as a `ValueError` (`peft_helper.py:133-136`).
 
 ## Configuration
 
+**vLLM version: 0.30.0**, the release on PyPI, tag `v0.30.0` (`ced6857afa`,
+2026-09-21). What PyPI distributes is that tag for every vLLM file this
+document cites: the nine Python files are byte-identical to it in both the
+source distribution and the x86_64 wheel, and the Rust file in the source
+distribution, each archive checked first against the SHA-256 that PyPI
+publishes. The source references throughout this document were read at
+`27757dde02`, `main` on 2026-09-20, which no release contains: `v0.30.0`
+was cut from a branch that left `main` at `f2aad6aa70` (2026-09-15). 269
+commits in `27757dde02` are not in the release, and 11 in the release are
+not in `27757dde02`.
+
+The ten vLLM files this document cites were compared between the two
+revisions. Eight differ; `vllm/benchmarks/latency.py` and
+`rust/src/engine-core-client/src/metrics.rs` are identical. In every hunk,
+the behaviour the campaign rests on is unchanged: the
+`vllm:lora_requests_info` Gauge and its labels, the per-adapter counts in
+`stats.py`, `lora_modules` and `lora_assignment` in the serving benchmark,
+`ignore_eos`, the folding of `lora_alpha` into the weights, the
+preallocation of LoRA slots, and the configuration defaults cited. Line
+numbers do differ, and some hunks change behaviour the campaign does not
+use: `27757dde02` adds metrics for an `ec_connector` to `loggers.py` and a
+field for it to `stats.py`, changes when `loggers.py` writes the
+prefix-cache hit rate to its text log, and adds a weights class for
+classification layers to `lora_weights.py`. One difference touches what the
+campaign relies on, and the release is the stricter side: at `v0.30.0` any
+non-empty `modules_to_save` is refused, where `27757dde02` admits
+`classifier` and `score`. The selection criteria below hold to the release.
+
+The campaign runs a release because its question is an operator's, and
+operators install releases. `pip install vllm==0.30.0` is also what a
+reader can reproduce.
+
 **Base model: `Qwen/Qwen2.5-7B-Instruct`.** Three reasons, none of them
 availability — the Hugging Face API returns adapters against this base
 past the query limit, as it does for Mistral 7B, Llama 3.1 8B and Qwen
@@ -230,8 +262,19 @@ node.
 - one rank shared by all eight, read from each `adapter_config.json`
   rather than from the model card;
 - `bias: none`, since an adapter carrying a bias is refused
-  (`peft_helper.py:133-136`);
-- rank not exceeding `max_lora_rank` (`peft_helper.py:128`).
+  (`peft_helper.py:133-136` at `27757dde02`, 129-132 at `v0.30.0`);
+- rank not exceeding `max_lora_rank` (`peft_helper.py:128` at
+  `27757dde02`, line 124 at `v0.30.0`);
+- `modules_to_save` empty and `use_dora` false, the two features
+  `_validate_features` refuses.
+
+At `v0.30.0`, `validate_legal` (`peft_helper.py:118-132`) applies exactly
+the four checks the last three items name. `use_dora` was checked when the
+eight were selected but not written here; `modules_to_save` was not checked
+at all. Both were checked afterwards against the eight at their pinned
+revisions: none has a non-empty `modules_to_save`, and none sets
+`use_dora`. For `modules_to_save` the criteria did not ensure that; it
+held.
 
 ### The eight, pinned
 
