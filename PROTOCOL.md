@@ -415,7 +415,30 @@ different question and this design does not answer it.
 | Factor | Levels | Serves |
 |---|---|---|
 | N, active adapters | 1, 2, 4, 8 | H1 |
-| traffic distribution at fixed N | uniform, skewed | H2 |
+| traffic distribution, at each N > 1 | uniform, skewed | H2 |
+
+Seven configurations: uniform at every N, skewed at every N above one.
+Measuring imbalance at a single N would assume that its cost does not
+depend on how many adapters are active, which is exactly the kind of thing
+this campaign is not entitled to assume. Three levels show whether the cost
+of imbalance grows, shrinks or holds as tenants are added — which is what
+an operator deciding how many adapters to co-locate needs to know.
+
+**Skew means one adapter takes 75% and the rest split the remainder
+evenly.** The generator distributes round-robin over the list it is given
+(`vllm/benchmarks/serve.py:927` at `27757dde02`, 922 at `v0.30.0`), so a
+share is expressed as repetitions: 3+1 at N=2, 9+3x1 at N=4, 21+7x1 at N=8,
+realising 75% exactly at each level. The 75/12.5/12.5 of the original N=8
+design is the same rule.
+
+**`num_prompts` is a multiple of 168.** Round-robin walks the list by
+index, so a prompt count that is not a whole number of cycles ends mid-list
+and quietly favours whichever adapters come first. The list lengths across
+the seven cells are 1, 2, 4, 8, 12 and 28, and 168 is their least common
+multiple. Every cell therefore realises its declared distribution exactly
+rather than approximately, and the cells stay comparable. The value itself
+is fixed by the dry run together with the cell duration: they are one
+question seen from two sides.
 
 Repetitions per cell: more than one, count fixed after the dry run.
 
