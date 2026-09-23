@@ -46,13 +46,17 @@ its evidence; it does not start the server. inferscope at acd21ec, vLLM
   process or sit deeper is not established here, and the dry run must check
   it: the flag sums direct children only.
 
-- **The readiness request and the tokenizer probe fall inside the window, and
-  are declared rather than excluded.** The benchmark sends one inference
-  request to the base model before the run, and one `/tokenize` request to
-  align prompt lengths. Both are identical in every cell, so they shift every
-  measurement by the same amount and do not disturb the comparison the
-  campaign makes. Starting the measurement after them would instead lose the
-  beginning of the load, which is where H1 expects a cost.
+- **The measurement window holds more than the requests, and the manifest
+  says how much.** Inside it fall the benchmark's readiness request, one
+  inference call on the base model; the tokenizer probe; and the load
+  process's own start-up, which imports vLLM and torch and builds the dataset
+  before sending anything. Measured on the bench over six runs, that preamble
+  ranged from 10.07 s to 14.03 s while the requests themselves took between
+  0.024 s and 0.037 s. The harness therefore records three separate figures -
+  the benchmark's own active duration, the load process's wall time, and
+  their difference - and never collapses them into one idle number. Starting
+  the measurement after the preamble would instead lose the beginning of the
+  load, which is where H1 expects a cost.
 
 ## Observed, on the bench
 
