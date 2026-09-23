@@ -1,3 +1,4 @@
 results/*
 !results/.gitkeep
 *.log
+__pycache__/
