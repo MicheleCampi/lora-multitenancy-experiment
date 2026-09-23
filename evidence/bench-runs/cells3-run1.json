@@ -1,0 +1,147 @@
+{
+ "schema": "lora-cell/1",
+ "cell": {
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "adapters": [
+   "a1",
+   "a2",
+   "a3"
+  ],
+  "weights": [
+   1,
+   1,
+   1
+  ],
+  "lora_modules_as_passed": [
+   "a1",
+   "a2",
+   "a3"
+  ],
+  "num_prompts": 24,
+  "max_concurrency": 4,
+  "input_len": 32,
+  "output_len": 16,
+  "window_secs": 20,
+  "seed": 42,
+  "server_pid": 846417
+ },
+ "commands": {
+  "measure": [
+   "/root/inferscope/target/release/inferscope",
+   "--sample-only",
+   "--pid",
+   "846417",
+   "--include-descendants",
+   "--duration-secs",
+   "20",
+   "--metrics-endpoint",
+   "http://127.0.0.1:8010/metrics",
+   "--engine",
+   "vllm",
+   "--model",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "--json"
+  ],
+  "load": [
+   "/root/venv-bench/bin/vllm",
+   "bench",
+   "serve",
+   "--backend",
+   "openai",
+   "--base-url",
+   "http://127.0.0.1:8010",
+   "--endpoint",
+   "/v1/completions",
+   "--model",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "--dataset-name",
+   "random",
+   "--num-prompts",
+   "24",
+   "--random-input-len",
+   "32",
+   "--random-output-len",
+   "16",
+   "--max-concurrency",
+   "4",
+   "--ignore-eos",
+   "--seed",
+   "42",
+   "--ready-check-timeout-sec",
+   "60",
+   "--lora-modules",
+   "a1",
+   "a2",
+   "a3",
+   "--lora-assignment",
+   "round-robin",
+   "--save-result",
+   "--save-detailed",
+   "--result-dir",
+   "/tmp/cells3/run1",
+   "--result-filename",
+   "load.json"
+  ]
+ },
+ "timing_s": {
+  "server_wait": 0.017,
+  "load_started_after_measure": 0.001,
+  "load_finished": 10.103,
+  "measure_finished": 20.007,
+  "load_process": 10.102,
+  "active_reported_by_benchmark": 0.03237914480268955,
+  "preamble": 10.07
+ },
+ "exit_codes": {
+  "measure": 0,
+  "load": 0
+ },
+ "containment": {
+  "load_inside_window": true,
+  "no_request_fraction_of_window": 0.9984
+ },
+ "load_summary": {
+  "completed": 24,
+  "failed": 0,
+  "total_output_tokens": 384,
+  "output_throughput": 11859.48555281495,
+  "mean_ttft_ms": 4.455209670898815,
+  "mean_itl_ms": 0.017071727294630062
+ },
+ "lora_observation": {
+  "tie": {
+   "candidates": [
+    {
+     "running_lora_adapters": [],
+     "waiting_lora_adapters": [],
+     "max_lora": 8,
+     "value": 1790191881.0
+    },
+    {
+     "running_lora_adapters": [
+      "a1"
+     ],
+     "waiting_lora_adapters": [],
+     "max_lora": 8,
+     "value": 1790191881.0
+    },
+    {
+     "running_lora_adapters": [
+      "a2"
+     ],
+     "waiting_lora_adapters": [],
+     "max_lora": 8,
+     "value": 1790191881.0
+    },
+    {
+     "running_lora_adapters": [
+      "a3"
+     ],
+     "waiting_lora_adapters": [],
+     "max_lora": 8,
+     "value": 1790191881.0
+    }
+   ]
+  }
+ }
+}
