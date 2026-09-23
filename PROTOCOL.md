@@ -419,6 +419,42 @@ different question and this design does not answer it.
 
 Repetitions per cell: more than one, count fixed after the dry run.
 
+## How the server is started
+
+Every invariant above is passed explicitly, including the ones that are
+already defaults at `v0.30.0`: a default is a property of a version, and
+this campaign names its conditions rather than inheriting them.
+
+```
+vllm serve Qwen/Qwen2.5-7B-Instruct \
+  --enable-lora --max-loras 8 --max-cpu-loras 8 --max-lora-rank 16 \
+  --lora-dtype auto --enforce-eager --data-parallel-size 1 \
+  --gpu-memory-utilization <fixed by the dry run> \
+  --max-model-len <fixed by the dry run> \
+  --lora-modules '{"name": "...", "path": "..."}' ...
+```
+
+Each flag maps to a configuration field read at `v0.30.0`: `enable_lora`
+(`vllm/engine/arg_utils.py:629`), `max_loras`, `max_cpu_loras`,
+`max_lora_rank` and `lora_dtype` (`vllm/config/lora.py:37`, `44`, `35`,
+`47`), `enforce_eager` and `max_model_len` (`vllm/config/model.py:242`,
+`215`), `data_parallel_size` (`vllm/config/parallel.py:129`), and
+`gpu_memory_utilization` (`vllm/config/cache.py:103`). `--lora-modules`
+takes the same JSON objects the simulator takes
+(`vllm/entrypoints/launchers/cli_args.py:75`, `219`).
+
+Two values are left to the dry run rather than guessed.
+`gpu_memory_utilization` is "the fraction of GPU memory to be used for the
+model executor" and defaults to 0.92, so it bounds what is left for
+everything the first question on the list below asks about. `max_model_len`
+is derived from the model config when unspecified, and the campaign fixes
+it instead so that every cell bounds its KV cache the same way.
+
+This line is written from the source, not from `vllm serve --help`:
+building that parser evaluates configuration defaults and fails without a
+device (`vllm/config/device.py:56`), so it cannot run on a machine without
+a GPU. The dry run is the first time the line is executed.
+
 ## What the dry run must establish before the campaign
 
 None of the following can be settled away from the node, and each one
