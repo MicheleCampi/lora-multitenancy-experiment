@@ -180,6 +180,16 @@ averaged. `completed` and `failed` are both recorded.
   it equal to `max_loras` when unset. With N never exceeding `max_loras`,
   the LRU eviction path never runs, so what is measured is multi-tenancy
   and not adapter swapping.
+- **One engine, no data parallelism.** vLLM warns that
+  `vllm:lora_requests_info` "may be incorrect/misleading with data parallel
+  deployments" and logs it whenever more than one engine index is present
+  (`vllm/v1/metrics/loggers.py:983-987` at `27757dde02`, `973-977` at
+  `v0.30.0`). The campaign reads that metric as the provenance of every cell,
+  so a deployment the producer calls misleading would undermine the record
+  rather than the measurement. A single A10 gives no reason to run more than
+  one engine; the invariant makes that a declared condition rather than a
+  circumstance.
+
 - **One rank, shared by every adapter.** vLLM does not require this:
   `vllm/lora/peft_helper.py:128` rejects an adapter only when its rank
   *exceeds* `max_lora_rank`, so adapters of mixed rank coexist happily.
@@ -412,7 +422,24 @@ changes the cell count or the hour budget:
    difference;
 4. whether `vllm:lora_requests_info` is exposed and carries the adapters
    the run actually drives — it exists only when `lora_config` is not
-   None (`vllm/v1/metrics/loggers.py:982`).
+   None (`vllm/v1/metrics/loggers.py:982` at `27757dde02`, line 972 at
+   `v0.30.0`);
+5. whether `inferscope --include-descendants` reaches the processes that
+   do the inference. vLLM runs engine-core in separate processes, and the
+   flag sums the PID with its direct children only (ADR-006). The bench
+   cannot answer this: llm-d-inference-sim is a single process;
+6. how long the load generator takes before it sends anything. On the
+   bench, importing vLLM and torch and building the dataset took between
+   10.07 s and 14.033 s over six runs, against requests lasting 0.024 s to
+   0.037 s. That preamble sits inside the measurement window, so it sets
+   the floor under a cell's duration.
+
+**The cells are run by `harness/run_cell.py`**, which starts the
+measurement and the load against a server that is already running, checks
+that the load ran inside the measurement window, and archives both
+artifacts with the configuration and the commands that produced them. A
+cell whose load is not contained, whose requests did not all complete, or
+which reports a failure is discarded and re-run.
 
 The dry run happens on a node that is paid for, so it is part of the
 budget, not a preliminary outside it.
