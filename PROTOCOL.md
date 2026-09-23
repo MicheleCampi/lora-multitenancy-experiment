@@ -183,12 +183,12 @@ averaged. `completed` and `failed` are both recorded.
 - **`lora_dtype` at its default.** The adapters ship their weights as F32,
   all eight of them, but vLLM does not keep them that way: `lora_dtype`
   defaults to `"auto"` and resolves to the model's dtype
-  (`vllm/config/lora.py:47`; the assignment is line 136 at `27757dde02`
-  and 137 at `v0.30.0`), which is what the
-  preallocated slots are built with (`base_linear.py:139`, `150`). Setting it
-  explicitly would change both the memory a slot costs and the kernels that
-  run, so it is held at the default and named here rather than left to
-  whatever the launch line happens to omit.
+  (`vllm/config/lora.py:47`; the assignment is line 136 at `27757dde02` and
+  137 at `v0.30.0`), which is what the preallocated slots are built with
+  (`base_linear.py:139`, `150`). Setting it explicitly would change both the
+  memory a slot costs and the kernels that run, so it is held at the default
+  and named here rather than left to whatever the launch line happens to
+  omit.
 
 - **One engine, no data parallelism.** vLLM warns that
   `vllm:lora_requests_info` "may be incorrect/misleading with data parallel
