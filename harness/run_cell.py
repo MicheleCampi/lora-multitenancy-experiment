@@ -79,6 +79,8 @@ def main() -> int:
     ap.add_argument("--bench-python", default="vllm")
     ap.add_argument("--server-wait-secs", type=float, default=300.0)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--require-gpu", action="store_true",
+                    help="measure the GPU and discard a cell without energy")
     args = ap.parse_args()
 
     out = pathlib.Path(args.out_dir)
@@ -97,6 +99,8 @@ def main() -> int:
         "--model", args.model,
         "--json",
     ]
+    if args.require_gpu:
+        measure_cmd.append("--gpu")
     load_cmd = [
         args.bench_python, "bench", "serve",
         "--backend", "openai",
@@ -165,6 +169,9 @@ def main() -> int:
         round(load_finished - load_started - active_secs, 3)
         if active_secs is not None else None
     )
+    gpu = (report or {}).get("gpu") or {}
+    energy_mj = gpu.get("energy_millijoules")
+    energy_source = gpu.get("energy_source")
     contained = (
         load.returncode == 0
         and measure.returncode == 0
@@ -205,6 +212,8 @@ def main() -> int:
             "preamble": preamble_secs,
         },
         "exit_codes": {"measure": measure.returncode, "load": load.returncode},
+        "gpu": {"required": args.require_gpu, "energy_millijoules": energy_mj,
+                "energy_source": energy_source},
         "containment": {
             "load_inside_window": contained,
             "no_request_fraction_of_window": no_request_fraction,
@@ -228,7 +237,8 @@ def main() -> int:
     completed = load_result.get("completed") if load_result else None
     # A cell that sent fewer requests than it declared did not run the load
     # it claims to have measured, however cleanly it exited.
-    ok = contained and failed == 0 and completed == args.num_prompts
+    ok = (contained and failed == 0 and completed == args.num_prompts
+          and (energy_mj is not None or not args.require_gpu))
     print(json.dumps({
         "out_dir": str(out),
         "contained": contained,
@@ -236,6 +246,7 @@ def main() -> int:
         "preamble_secs": preamble_secs,
         "completed": completed,
         "failed_requests": failed,
+        "energy_millijoules": energy_mj,
         "lora": manifest["lora_observation"],
         "verdict": "keep" if ok else "discard",
     }, indent=1))
