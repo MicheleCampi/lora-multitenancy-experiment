@@ -65,6 +65,27 @@ def counter_sum(metrics_url: str, name: str) -> float | None:
     return sum(values) if values else None
 
 
+def prompt_lengths(load_result: dict | None, input_len: int,
+                   num_prompts: int) -> dict:
+    """Checks that every prompt the benchmark sent had the declared length.
+
+    The random dataset stops adjusting a prompt after a fixed number of
+    retries and keeps whatever length it reached, so a prompt can leave longer
+    or shorter than requested. input_lens holds one entry per request sent,
+    failed ones included. A cell whose prompts are not all of the declared
+    length did not run its declared load; a result without input_lens cannot
+    show that it did.
+    """
+    lens = (load_result or {}).get("input_lens")
+    off = None if lens is None else sum(1 for n in lens if n != input_len)
+    return {
+        "expected": input_len,
+        "recorded": None if lens is None else len(lens),
+        "off_target": off,
+        "exact": lens is not None and len(lens) == num_prompts and off == 0,
+    }
+
+
 def adapter_list(adapters: list[str], weights: list[int]) -> list[str]:
     """Expands adapters into the list the benchmark consumes.
 
@@ -121,6 +142,9 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--require-gpu", action="store_true",
                     help="measure the GPU and discard a cell without energy")
+    ap.add_argument("--tokenizer", required=True,
+                    help="path of the pinned model snapshot; the benchmark "
+                         "otherwise resolves the tokenizer by name, unpinned")
     args = ap.parse_args()
 
     out = pathlib.Path(args.out_dir)
@@ -148,6 +172,7 @@ def main() -> int:
         "--base-url", args.base_url,
         "--endpoint", "/v1/completions",
         "--model", args.model,
+        "--tokenizer", args.tokenizer,
         "--dataset-name", "random",
         "--num-prompts", str(args.num_prompts),
         "--random-input-len", str(args.input_len),
@@ -181,11 +206,14 @@ def main() -> int:
     measure_out, measure_err = measure.communicate()
     measure_finished = time.monotonic() - t0
     hits_after = counter_sum(args.metrics_url, hits_name)
-    # Prompts differ between cells by seed, so any hit here is a prompt this
-    # cell sent before or another cell left in the cache; either way the cell
-    # did not pay its own prefill. None means the server does not export it.
+    # Any hit here is a prompt this cell sent before or another cell left in
+    # the cache: the random dataset can repeat a prompt inside one cell as well
+    # as across cells. Either way the cell did not pay its own prefill. None
+    # means the server does not export the counter.
     prefix_hits = (None if hits_before is None or hits_after is None
                    else hits_after - hits_before)
+    # The benchmark's warning that its tokenizer and the server's disagree. It
+    # does not cover prompt length, which prompt_lengths checks.
     tokenizer_mismatch = "tokenizer mismatch" in load_out
 
     (out / "load.stdout.txt").write_text(load_out)
@@ -214,6 +242,7 @@ def main() -> int:
     # measurement window without touching the server. Both are recorded,
     # because one figure cannot say both things.
     active_secs = load_result.get("duration") if load_result else None
+    lengths = prompt_lengths(load_result, args.input_len, args.num_prompts)
     preamble_secs = (
         round(load_finished - load_started - active_secs, 3)
         if active_secs is not None else None
@@ -248,6 +277,7 @@ def main() -> int:
             "window_secs": args.window_secs,
             "seed": args.seed,
             "server_pid": args.server_pid,
+            "tokenizer": args.tokenizer,
         },
         "commands": {"measure": measure_cmd, "load": load_cmd},
         "timing_s": {
@@ -265,6 +295,7 @@ def main() -> int:
                 "energy_source": energy_source},
         "prefix_cache_hits_in_cell": prefix_hits,
         "tokenizer_mismatch": tokenizer_mismatch,
+        "prompt_lengths": lengths,
         "containment": {
             "load_inside_window": contained,
             "no_request_fraction_of_window": no_request_fraction,
@@ -290,7 +321,8 @@ def main() -> int:
     # it claims to have measured, however cleanly it exited.
     ok = (contained and failed == 0 and completed == args.num_prompts
           and (energy_mj is not None or not args.require_gpu)
-          and not (prefix_hits or 0) > 0)
+          and not (prefix_hits or 0) > 0
+          and lengths["exact"])
     print(json.dumps({
         "out_dir": str(out),
         "contained": contained,
@@ -301,6 +333,7 @@ def main() -> int:
         "energy_millijoules": energy_mj,
         "prefix_cache_hits_in_cell": prefix_hits,
         "tokenizer_mismatch": tokenizer_mismatch,
+        "prompt_lengths_off_target": lengths["off_target"],
         "lora": manifest["lora_observation"],
         "verdict": "keep" if ok else "discard",
     }, indent=1))
