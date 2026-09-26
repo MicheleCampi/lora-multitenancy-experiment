@@ -6,10 +6,17 @@ esposti sono esattamente il base e a1..a8; i figli visti da
 tiene la GPU sta nell'insieme che inferscope misura; il contatore della cache
 dei prefissi esiste; inferscope --gpu restituisce energia.
 Il server resta acceso alla fine. Scrive ~/lora-run/session.json.
+
+Prima di lanciare: se la porta risponde gia' la fase si ferma senza toccare
+nulla, perche' l'attesa accetterebbe la risposta di un altro server (26/9:
+"pronto in 0 s" da un server lanciato prima). session.json, server.pid e
+serve.log di un avvio precedente vengono rinominati con data e ora, non
+sovrascritti.
 """
 import json
 import os
 import pathlib
+import socket
 import subprocess
 import sys
 import time
@@ -37,6 +44,12 @@ def cmdline(pid: int) -> str:
     return raw.replace(b"\0", b" ").decode(errors="replace").strip()
 
 
+def port_in_use(port: int) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(2)
+        return s.connect_ex(("127.0.0.1", port)) == 0
+
+
 def ps_children(pid: int) -> list[int]:
     out = subprocess.run(["ps", "-o", "pid=", "--ppid", str(pid)],
                          capture_output=True, text=True).stdout
@@ -45,6 +58,17 @@ def ps_children(pid: int) -> list[int]:
 
 if any(k.startswith("VLLM_") for k in os.environ):
     fail("variabili VLLM_* nell'ambiente")
+
+if port_in_use(PORT):
+    fail(f"la porta {PORT} risponde gia': un server e' attivo "
+         f"(ss -ltnp 'sport = :{PORT}'); nulla e' stato lanciato ne' modificato")
+
+stamp = time.strftime("%Y%m%dT%H%M%S")
+for old in (R / "session.json", R / "server.pid", R / "logs" / "serve.log"):
+    if old.exists():
+        kept = old.with_name(f"{old.name}.{stamp}")
+        old.rename(kept)
+        print("conservato:", kept, flush=True)
 
 pins = json.loads((R / "pins.json").read_text())
 base = pins["base"]
