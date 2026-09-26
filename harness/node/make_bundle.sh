@@ -21,12 +21,12 @@ got=$(sha256sum "$bin" | cut -d' ' -f1)
 
 mkdir -p "$out"
 cp "$repo/harness/run_cell.py" "$out/"
-for f in download.py phase0.sh phase1.sh phase2.py phase3.py; do
+for f in download.py phase0.sh phase1.sh phase2.py phase3.py plan.py seeds.json; do
   cp -p "$repo/harness/node/$f" "$out/"
 done
 cp -p "$bin" "$out/inferscope"
 git -C "$repo" rev-parse HEAD > "$out/BUNDLE_COMMIT"
 (cd "$out" && sha256sum BUNDLE_COMMIT download.py inferscope phase0.sh phase1.sh \
-  phase2.py phase3.py run_cell.py > SHA256SUMS)
+  phase2.py phase3.py plan.py run_cell.py seeds.json > SHA256SUMS)
 echo "pacchetto $out dal commit $(cat "$out/BUNDLE_COMMIT")"
 cat "$out/SHA256SUMS"
