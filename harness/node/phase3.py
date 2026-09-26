@@ -1,19 +1,21 @@
 """Fase 3 - misure della prova generale, con regole fissate prima del nodo.
 
-Ordine: riscaldamento su tutti e otto gli adattatori (scartato); D8 potenza a
-riposo; D2 concorrenza 64/32/16/8 su uniforme N=8; c* = concorrenza piu' bassa
-con throughput >= 90% del massimo; D3/D7 tre ripetizioni alternate di N=1 e
-N=8 a c*; R30 con due celle a seme ripetuto. Ogni cella passa per
-run_cell.py con --require-gpu e un seme proprio. Scrive
-<LORA_RUN>/results/summary.json.
+Le celle, i livelli e il numero di prompt vengono da plan.py; i semi da
+seeds.json, scelti prima del nodo da seedcheck.py. Ordine: riscaldamento su
+tutti e otto gli adattatori (scartato); D8 potenza a riposo; D2 ai livelli di
+plan.D2_LEVELS su uniforme N=8; c* = concorrenza piu' bassa con throughput
+>= 90% del massimo; D3/D7 plan.D3_REPS ripetizioni alternate di N=1 e N=8 a
+c*; R30 con due celle allo stesso seme. Ogni cella passa per run_cell.py con
+--require-gpu. Scrive <LORA_RUN>/results/summary.json.
 
 Variabili solo per la prova sul simulatore (sul nodo restano ai default):
-LORA_RUN, LORA_URL, LORA_NO_GPU=1, LORA_PROMPTS, LORA_IN, LORA_OUT,
-LORA_PYTHON, LORA_BENCH, LORA_FIRST_WINDOW, LORA_SHORT_WINDOW, LORA_TOKENIZER.
+LORA_RUN, LORA_URL, LORA_NO_GPU=1, LORA_PYTHON, LORA_BENCH,
+LORA_FIRST_WINDOW, LORA_SHORT_WINDOW, LORA_TOKENIZER.
 Le finestre successive alla prima si ricavano dalla cella precedente:
-preambolo misurato + 10 s + 2.2 x durata attiva x rapporto di concorrenza.
+preambolo misurato + 10 s + 2.2 x durata attiva x rapporto di concorrenza;
+la finestra di D3 scala la cella di D2 a c* sul rapporto fra i prompt.
 
-Una cella scartata si rilancia una volta con un seme nuovo: con finestra
+Una cella scartata si rilancia una volta con il seme di riserva: con finestra
 doppia se il carico non era contenuto, con la stessa finestra altrimenti.
 Ogni cella ha un tempo massimo (2 x finestra + 300 s); oltre, run_cell e i
 suoi figli vengono terminati. I token di una cella sono le richieste
@@ -36,24 +38,28 @@ PY = os.environ.get("LORA_PYTHON", str(R / "venv" / "bin" / "python"))
 BENCH = os.environ.get("LORA_BENCH", str(R / "venv" / "bin" / "vllm"))
 URL = os.environ.get("LORA_URL", "http://127.0.0.1:8000")
 NO_GPU = os.environ.get("LORA_NO_GPU") == "1"
-N_PROMPTS = int(os.environ.get("LORA_PROMPTS", "168"))
-IN_LEN = int(os.environ.get("LORA_IN", "256"))
-OUT_LEN = int(os.environ.get("LORA_OUT", "256"))
-FIRST_WINDOW = int(os.environ.get("LORA_FIRST_WINDOW", "180"))
+FIRST_WINDOW = int(os.environ.get("LORA_FIRST_WINDOW", "400"))
 SHORT_WINDOW = int(os.environ.get("LORA_SHORT_WINDOW", "120"))
-ALL8 = [f"a{i}" for i in range(1, 9)]
-BUDGET_S = 75 * 60
+BUDGET_S = 80 * 60
 T0 = time.time()
+
+sys.path.insert(0, str(B))
+import plan  # noqa: E402
+
+ALL8 = plan.ALL8
+IN_LEN = plan.IN_LEN
+OUT_LEN = plan.OUT_LEN
+SEEDS = json.loads((B / "seeds.json").read_text())["cells"]
 
 session = json.loads((R / "session.json").read_text())
 PID = session["pid"]
 PINS = json.loads((R / "pins.json").read_text())
 BASE = PINS["base"]["repo"]
 TOK = os.environ.get("LORA_TOKENIZER") or PINS["base"]["path"]
-seeds = iter(range(1001, 10**6))
 cells: list[dict] = []
 summary: dict = {"started": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "no_gpu": NO_GPU,
-                 "n_prompts": N_PROMPTS, "in_len": IN_LEN, "out_len": OUT_LEN}
+                 "d2_prompts": plan.D2_PROMPTS, "d3_prompts": plan.D3_PROMPTS,
+                 "in_len": IN_LEN, "out_len": OUT_LEN}
 
 
 def dump() -> None:
@@ -62,11 +68,10 @@ def dump() -> None:
     (RES / "summary.json").write_text(json.dumps(summary, indent=1))
 
 
-def run(tag, adapters, n, c, window, seed=None, weights=None):
+def run(tag, adapters, n, c, window, seed, weights=None):
     if time.time() - T0 > BUDGET_S:
         print(f"[{tag}] budget di fase esaurito: cella non eseguita", flush=True)
         return None
-    seed = next(seeds) if seed is None else seed
     out = RES / tag
     cmd = [PY, str(B / "run_cell.py"), "--server-pid", str(PID),
            "--base-url", URL, "--metrics-url", URL + "/metrics", "--model", BASE,
@@ -126,12 +131,13 @@ def run(tag, adapters, n, c, window, seed=None, weights=None):
 
 
 def cell(tag, adapters, n, c, window):
-    r = run(tag, adapters, n, c, window)
+    s = SEEDS[tag]
+    r = run(tag, adapters, n, c, window, s["seed"])
     if r is not None and r["verdict"] == "discard":
         if r["contained"]:
-            r = run(tag + "-bis", adapters, n, c, window)
+            r = run(tag + "-bis", adapters, n, c, window, s["spare"])
         else:
-            r = run(tag + "-w2", adapters, n, c, window * 2)
+            r = run(tag + "-w2", adapters, n, c, window * 2, s["spare"])
     return r
 
 
@@ -163,14 +169,14 @@ def stats(rows, key):
 
 RES.mkdir(parents=True, exist_ok=True)
 
-run("warmup", ALL8, 24, 8, SHORT_WINDOW)
+run("warmup", ALL8, plan.WARMUP_PROMPTS, 8, SHORT_WINDOW, SEEDS["warmup"]["seed"])
 summary["d8_idle"] = idle_power(60)
 
 sweep, prev = [], None
-for c in (64, 32, 16, 8):
+for c in plan.D2_LEVELS:
     window = FIRST_WINDOW if prev is None else math.ceil(
         (prev["preamble_s"] or 15) + 10 + 2.2 * prev["active_s"] * prev["c"] / c)
-    r = cell(f"d2-c{c}", ALL8, N_PROMPTS, c, window)
+    r = cell(f"d2-c{c}", ALL8, plan.D2_PROMPTS, c, window)
     if r is None:
         break
     if r["verdict"] == "keep":
@@ -184,15 +190,16 @@ if not sweep:
 best = max(r["output_throughput"] for r in sweep)
 c_star = min(r["c"] for r in sweep if r["output_throughput"] >= 0.9 * best)
 ref = next(r for r in sweep if r["c"] == c_star)
-win = math.ceil((ref["preamble_s"] or 15) + 10 + 2.2 * ref["active_s"])
+win = math.ceil((ref["preamble_s"] or 15) + 10
+                + 2.2 * ref["active_s"] * plan.D3_PROMPTS / plan.D2_PROMPTS)
 summary["c_star"] = c_star
 summary["d3_window"] = win
 print(f"[d2] throughput massimo {best}; c* = {c_star}; finestra D3 {win} s", flush=True)
 
 reps = {"n1": [], "n8": []}
-for i in range(1, 4):
+for i in range(1, plan.D3_REPS + 1):
     for key, ads in (("n1", ["a1"]), ("n8", ALL8)):
-        r = cell(f"d3-{key}-r{i}", ads, N_PROMPTS, c_star, win)
+        r = cell(f"d3-{key}-r{i}", ads, plan.D3_PROMPTS, c_star, win)
         if r is not None and r["verdict"] == "keep":
             reps[key].append(r)
 
@@ -210,8 +217,8 @@ summary["d7_margin"] = {
     if d3["n1"][m]["mean"] and d3["n8"][m]["mean"] else None
     for m in ("j_per_token", "j_per_token_idle_corrected", "s_per_token")}
 
-a = run("r30-a", ALL8, 24, 8, SHORT_WINDOW, seed=777)
-b = run("r30-b", ALL8, 24, 8, SHORT_WINDOW, seed=777)
+a = run("r30-a", ALL8, plan.R30_PROMPTS, 8, SHORT_WINDOW, SEEDS["r30"]["seed"])
+b = run("r30-b", ALL8, plan.R30_PROMPTS, 8, SHORT_WINDOW, SEEDS["r30"]["seed"])
 summary["r30"] = {"first_hits": a and a["prefix_hits"], "second_hits": b and b["prefix_hits"],
                   "second_verdict": b and b["verdict"]}
 dump()
