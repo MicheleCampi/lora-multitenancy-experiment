@@ -1,0 +1,753 @@
+{
+ "snapshot": "/root/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
+ "start": 2001,
+ "block": 16,
+ "in_len": 256,
+ "window_cells": 2,
+ "cells": {
+  "warmup": {
+   "seed": 2001,
+   "spare": 2002,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 24
+  },
+  "d2-c160": {
+   "seed": 2003,
+   "spare": 2004,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 672
+  },
+  "d2-c128": {
+   "seed": 2010,
+   "spare": 2011,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 672
+  },
+  "d2-c96": {
+   "seed": 2016,
+   "spare": 2027,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 672
+  },
+  "d2-c64": {
+   "seed": 2047,
+   "spare": 2058,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 672
+  },
+  "d3-n1-r1": {
+   "seed": 2068,
+   "spare": 2074,
+   "adapters": [
+    "a1"
+   ],
+   "num_prompts": 336
+  },
+  "d3-n8-r1": {
+   "seed": 2075,
+   "spare": 2077,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 336
+  },
+  "d3-n1-r2": {
+   "seed": 2082,
+   "spare": 2100,
+   "adapters": [
+    "a1"
+   ],
+   "num_prompts": 336
+  },
+  "d3-n8-r2": {
+   "seed": 2101,
+   "spare": 2102,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 336
+  },
+  "d3-n1-r3": {
+   "seed": 2103,
+   "spare": 2107,
+   "adapters": [
+    "a1"
+   ],
+   "num_prompts": 336
+  },
+  "d3-n8-r3": {
+   "seed": 2108,
+   "spare": 2109,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 336
+  },
+  "d3-n1-r4": {
+   "seed": 2121,
+   "spare": 2135,
+   "adapters": [
+    "a1"
+   ],
+   "num_prompts": 336
+  },
+  "d3-n8-r4": {
+   "seed": 2136,
+   "spare": 2138,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 336
+  },
+  "r30": {
+   "seed": 2139,
+   "spare": null,
+   "adapters": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7",
+    "a8"
+   ],
+   "num_prompts": 24
+  }
+ },
+ "rejected": [
+  {
+   "cell": "d2-c128",
+   "seed": 2005,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c128",
+   "seed": 2006,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c128",
+   "seed": 2007,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d2-c128",
+   "seed": 2008,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c128",
+   "seed": 2009,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2012,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2013,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2014,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2015,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2017,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2018,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2019,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2020,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2021,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2022,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2023,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2024,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2025,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c96",
+   "seed": 2026,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2028,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2029,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2030,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2031,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2032,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2033,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2034,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2035,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2036,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2037,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2038,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2039,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2040,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2041,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2042,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2043,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2044,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2045,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2046,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2048,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2049,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2050,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2051,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2052,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2053,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2054,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2055,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2056,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d2-c64",
+   "seed": 2057,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2059,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2060,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2061,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2062,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2063,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2064,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2065,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2066,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2067,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2069,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2070,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2071,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2072,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r1",
+   "seed": 2073,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n8-r1",
+   "seed": 2076,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2078,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2079,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2080,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2081,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2083,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2084,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2085,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2086,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2087,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2088,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2089,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2090,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2091,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2092,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2093,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2094,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2095,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2096,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2097,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2098,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r2",
+   "seed": 2099,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r3",
+   "seed": 2104,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r3",
+   "seed": 2105,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r3",
+   "seed": 2106,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2110,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2111,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2112,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2113,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2114,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2115,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2116,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2117,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2118,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2119,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2120,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2122,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2123,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2124,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2125,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2126,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2127,
+   "reason": "1 prompt fuori misura"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2128,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2129,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2130,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2131,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2132,
+   "reason": "primo blocco ripetuto nella cella"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2133,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n1-r4",
+   "seed": 2134,
+   "reason": "primo blocco gia' usato in finestra"
+  },
+  {
+   "cell": "d3-n8-r4",
+   "seed": 2137,
+   "reason": "primo blocco gia' usato in finestra"
+  }
+ ]
+}
