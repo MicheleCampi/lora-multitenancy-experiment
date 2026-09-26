@@ -128,6 +128,10 @@ def main() -> int:
 
     load_out, load_err = load.communicate()
     load_finished = time.monotonic() - t0
+    # Containment means the measurement was still sampling when the load
+    # ended. Comparing the two finish times cannot show that: the second is
+    # taken after the first by construction.
+    measure_alive_at_load_end = measure.poll() is None
     measure_out, measure_err = measure.communicate()
     measure_finished = time.monotonic() - t0
 
@@ -164,7 +168,7 @@ def main() -> int:
     contained = (
         load.returncode == 0
         and measure.returncode == 0
-        and load_finished <= measure_finished
+        and measure_alive_at_load_end
         and active_secs is not None
     )
     # The fraction of the window during which no request was in flight. It
@@ -195,6 +199,7 @@ def main() -> int:
             "load_started_after_measure": round(load_started, 3),
             "load_finished": round(load_finished, 3),
             "measure_finished": round(measure_finished, 3),
+            "measure_alive_at_load_end": measure_alive_at_load_end,
             "load_process": round(load_finished - load_started, 3),
             "active_reported_by_benchmark": active_secs,
             "preamble": preamble_secs,
