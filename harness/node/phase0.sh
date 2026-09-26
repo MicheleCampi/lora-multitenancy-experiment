@@ -50,8 +50,16 @@ fi
 echo "(nessuna)"
 
 echo "== inferscope"
-"$B/inferscope" --version || fail "inferscope non eseguibile"
-"$B/inferscope" --help | grep -q -- '--gpu' || fail "inferscope senza --gpu"
+# --version e --help stampano su stderr, con il prefisso "inferscope: ";
+# --version esce con codice 2 (stesso binario: codice 2 sul nodo, stderr su
+# optim-dev, 26/9). Si controlla il testo, catturando stderr, non il codice.
+v=$("$B/inferscope" --version 2>&1)
+echo "$v"
+case "$v" in
+  *"inferscope 0.5.0"*) ;;
+  *) fail "inferscope non eseguibile o versione diversa da 0.5.0: $v" ;;
+esac
+"$B/inferscope" --help 2>&1 | grep -q -- '--gpu' || fail "inferscope senza --gpu"
 
 echo "== token Hugging Face"
 if [ -n "${HF_TOKEN:-}" ]; then echo "presente (non stampato)"; else echo "assente: download anonimo"; fi
