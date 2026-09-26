@@ -53,6 +53,18 @@ def wait_for_server(metrics_url: str, base_url: str, model: str,
     raise SystemExit(f"server did not complete a request at {base_url} in {timeout_s}s")
 
 
+def counter_sum(metrics_url: str, name: str) -> float | None:
+    """Sums every series of a Prometheus counter, or None if it is absent."""
+    try:
+        with urllib.request.urlopen(metrics_url, timeout=5) as r:
+            text = r.read().decode()
+    except (urllib.error.URLError, OSError):
+        return None
+    values = [float(line.rsplit(" ", 1)[1]) for line in text.splitlines()
+              if line.startswith(name + "{") or line.startswith(name + " ")]
+    return sum(values) if values else None
+
+
 def adapter_list(adapters: list[str], weights: list[int]) -> list[str]:
     """Expands adapters into the list the benchmark consumes.
 
@@ -149,6 +161,8 @@ def main() -> int:
         "--result-dir", str(out), "--result-filename", "load.json",
     ]
 
+    hits_name = "vllm:prefix_cache_hits_total"
+    hits_before = counter_sum(args.metrics_url, hits_name)
     t0 = time.monotonic()
     measure = subprocess.Popen(
         measure_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
@@ -166,6 +180,13 @@ def main() -> int:
     measure_alive_at_load_end = measure.poll() is None
     measure_out, measure_err = measure.communicate()
     measure_finished = time.monotonic() - t0
+    hits_after = counter_sum(args.metrics_url, hits_name)
+    # Prompts differ between cells by seed, so any hit here is a prompt this
+    # cell sent before or another cell left in the cache; either way the cell
+    # did not pay its own prefill. None means the server does not export it.
+    prefix_hits = (None if hits_before is None or hits_after is None
+                   else hits_after - hits_before)
+    tokenizer_mismatch = "tokenizer mismatch" in load_out
 
     (out / "load.stdout.txt").write_text(load_out)
     (out / "load.stderr.txt").write_text(load_err)
@@ -242,6 +263,8 @@ def main() -> int:
         "exit_codes": {"measure": measure.returncode, "load": load.returncode},
         "gpu": {"required": args.require_gpu, "energy_millijoules": energy_mj,
                 "energy_source": energy_source},
+        "prefix_cache_hits_in_cell": prefix_hits,
+        "tokenizer_mismatch": tokenizer_mismatch,
         "containment": {
             "load_inside_window": contained,
             "no_request_fraction_of_window": no_request_fraction,
@@ -266,7 +289,8 @@ def main() -> int:
     # A cell that sent fewer requests than it declared did not run the load
     # it claims to have measured, however cleanly it exited.
     ok = (contained and failed == 0 and completed == args.num_prompts
-          and (energy_mj is not None or not args.require_gpu))
+          and (energy_mj is not None or not args.require_gpu)
+          and not (prefix_hits or 0) > 0)
     print(json.dumps({
         "out_dir": str(out),
         "contained": contained,
@@ -275,6 +299,8 @@ def main() -> int:
         "completed": completed,
         "failed_requests": failed,
         "energy_millijoules": energy_mj,
+        "prefix_cache_hits_in_cell": prefix_hits,
+        "tokenizer_mismatch": tokenizer_mismatch,
         "lora": manifest["lora_observation"],
         "verdict": "keep" if ok else "discard",
     }, indent=1))
