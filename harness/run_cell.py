@@ -64,9 +64,26 @@ def adapter_list(adapters: list[str], weights: list[int]) -> list[str]:
         return list(adapters)
     if len(weights) != len(adapters):
         raise SystemExit("--weights must have one entry per adapter")
-    out = []
+    # Interleaved by weight class. Adapters of equal weight rotate among
+    # themselves in the order given; classes are merged heaviest first, each
+    # spread at equal intervals over the list built so far. The benchmark walks
+    # the list cyclically (i % len), so a heavy adapter's repetitions are kept
+    # apart across the wrap as well: at 21+7x1 no more than three consecutive
+    # requests go to it. Contiguous blocks would send it up to its weight in a
+    # row and change how many adapters share a batch. Every adapter still
+    # appears exactly `weight` times.
+    classes: dict[int, list[str]] = {}
     for adapter, weight in zip(adapters, weights):
-        out.extend([adapter] * weight)
+        classes.setdefault(weight, []).append(adapter)
+    out: list[str] = []
+    for weight in sorted(classes, reverse=True):
+        block = classes[weight] * weight
+        if not block:
+            continue
+        m = len(out) + len(block)
+        slots = {(j + 1) * m // len(block) - 1 for j in range(len(block))}
+        rest, new_items = iter(out), iter(block)
+        out = [next(new_items) if pos in slots else next(rest) for pos in range(m)]
     return out
 
 
