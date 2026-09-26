@@ -67,14 +67,19 @@ def counter_sum(metrics_url: str, name: str) -> float | None:
 
 def prompt_lengths(load_result: dict | None, input_len: int,
                    num_prompts: int) -> dict:
-    """Checks that every prompt the benchmark sent had the declared length.
+    """Checks that every request carried a prompt of the declared length.
 
     The random dataset stops adjusting a prompt after a fixed number of
     retries and keeps whatever length it reached, so a prompt can leave longer
     or shorter than requested. input_lens holds one entry per request sent,
-    failed ones included. A cell whose prompts are not all of the declared
-    length did not run its declared load; a result without input_lens cannot
-    show that it did.
+    failed ones included: the prompt tokens the server reported in the
+    response's usage when there was one, the length the benchmark's client
+    computed otherwise (vllm/benchmarks/lib/endpoint_request_func.py:197 and
+    248-249 in vLLM 0.30.0). A cell whose requests are not all of the declared
+    length did not run its declared load, and a result without input_lens
+    cannot show that it did. A server that reports other prompt token counts
+    fails this check: llm-d-inference-sim reported 0 to 108 for prompts built to
+    32 tokens in the tests of 2026-09-26.
     """
     lens = (load_result or {}).get("input_lens")
     off = None if lens is None else sum(1 for n in lens if n != input_len)
