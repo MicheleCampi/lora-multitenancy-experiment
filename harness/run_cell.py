@@ -23,23 +23,34 @@ import urllib.error
 import urllib.request
 
 
-def wait_for_server(metrics_url: str, timeout_s: float) -> float:
-    """Blocks until the server answers, and returns how long that took.
+def wait_for_server(metrics_url: str, base_url: str, model: str,
+                    timeout_s: float) -> float:
+    """Blocks until the server completes a request on the base model, and
+    returns how long that took.
 
-    The benchmark has its own readiness check, kept on as a second guard,
-    but it runs inside the measurement window; this one runs before it.
+    The benchmark's own readiness check is left at its default, off: when on,
+    it sends an inference request on the base model inside the measurement
+    window. This guard runs before the window opens, and asks for a generated
+    token rather than only /metrics, so an endpoint that answers before its
+    engine serves does not pass.
     """
     started = time.monotonic()
     deadline = started + timeout_s
+    body = json.dumps({"model": model, "prompt": "Hi", "max_tokens": 1}).encode()
     while time.monotonic() < deadline:
         try:
             with urllib.request.urlopen(metrics_url, timeout=5) as r:
                 if r.status == 200:
-                    return time.monotonic() - started
+                    req = urllib.request.Request(
+                        base_url.rstrip("/") + "/v1/completions", data=body,
+                        headers={"Content-Type": "application/json"})
+                    with urllib.request.urlopen(req, timeout=30) as c:
+                        if c.status == 200:
+                            return time.monotonic() - started
         except (urllib.error.URLError, OSError):
             pass
         time.sleep(0.5)
-    raise SystemExit(f"server did not answer {metrics_url} in {timeout_s}s")
+    raise SystemExit(f"server did not complete a request at {base_url} in {timeout_s}s")
 
 
 def adapter_list(adapters: list[str], weights: list[int]) -> list[str]:
@@ -87,7 +98,8 @@ def main() -> int:
     out.mkdir(parents=True, exist_ok=True)
     modules = adapter_list(args.adapters, args.weights)
 
-    waited = wait_for_server(args.metrics_url, args.server_wait_secs)
+    waited = wait_for_server(args.metrics_url, args.base_url, args.model,
+                             args.server_wait_secs)
 
     measure_cmd = [
         args.inferscope, "--sample-only",
@@ -114,7 +126,6 @@ def main() -> int:
         "--max-concurrency", str(args.max_concurrency),
         "--ignore-eos",
         "--seed", str(args.seed),
-        "--ready-check-timeout-sec", "60",
         "--lora-modules", *modules,
         "--lora-assignment", "round-robin",
         "--save-result", "--save-detailed",
