@@ -9,14 +9,22 @@ run_cell.py con --require-gpu e un seme proprio. Scrive
 
 Variabili solo per la prova sul simulatore (sul nodo restano ai default):
 LORA_RUN, LORA_URL, LORA_NO_GPU=1, LORA_PROMPTS, LORA_IN, LORA_OUT,
-LORA_PYTHON, LORA_BENCH, LORA_FIRST_WINDOW, LORA_SHORT_WINDOW.
+LORA_PYTHON, LORA_BENCH, LORA_FIRST_WINDOW, LORA_SHORT_WINDOW, LORA_TOKENIZER.
 Le finestre successive alla prima si ricavano dalla cella precedente:
 preambolo misurato + 10 s + 2.2 x durata attiva x rapporto di concorrenza.
+
+Una cella scartata si rilancia una volta con un seme nuovo: con finestra
+doppia se il carico non era contenuto, con la stessa finestra altrimenti.
+Ogni cella ha un tempo massimo (2 x finestra + 300 s); oltre, run_cell e i
+suoi figli vengono terminati. I token di una cella sono le richieste
+completate x lunghezza di uscita (--ignore-eos, max_tokens = lunghezza).
+Il benchmark usa il tokenizer dello snapshot pinnato del modello base.
 """
 import json
 import math
 import os
 import pathlib
+import signal
 import subprocess
 import sys
 import time
@@ -39,7 +47,9 @@ T0 = time.time()
 
 session = json.loads((R / "session.json").read_text())
 PID = session["pid"]
-BASE = json.loads((R / "pins.json").read_text())["base"]["repo"]
+PINS = json.loads((R / "pins.json").read_text())
+BASE = PINS["base"]["repo"]
+TOK = os.environ.get("LORA_TOKENIZER") or PINS["base"]["path"]
 seeds = iter(range(1001, 10**6))
 cells: list[dict] = []
 summary: dict = {"started": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "no_gpu": NO_GPU,
@@ -63,22 +73,32 @@ def run(tag, adapters, n, c, window, seed=None, weights=None):
            "--adapters", *adapters, "--num-prompts", str(n), "--max-concurrency", str(c),
            "--input-len", str(IN_LEN), "--output-len", str(OUT_LEN),
            "--window-secs", str(window), "--seed", str(seed), "--out-dir", str(out),
-           "--inferscope", str(B / "inferscope"), "--bench-python", BENCH]
+           "--inferscope", str(B / "inferscope"), "--bench-python", BENCH,
+           "--tokenizer", TOK]
     if not NO_GPU:
         cmd.append("--require-gpu")
     if weights:
         cmd += ["--weights", *map(str, weights)]
     t = time.time()
-    p = subprocess.run(cmd, capture_output=True, text=True)
-    (RES / f"{tag}.stdout.txt").write_text(p.stdout)
-    (RES / f"{tag}.stderr.txt").write_text(p.stderr)
+    limit = 2 * window + 300
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+                         start_new_session=True)
+    try:
+        out_s, err_s = p.communicate(timeout=limit)
+    except subprocess.TimeoutExpired:
+        os.killpg(p.pid, signal.SIGKILL)
+        out_s, err_s = p.communicate()
+        print(f"[{tag}] oltre il tempo massimo di {limit} s: run_cell e figli terminati",
+              flush=True)
+    (RES / f"{tag}.stdout.txt").write_text(out_s)
+    (RES / f"{tag}.stderr.txt").write_text(err_s)
     try:
         m = json.loads((out / "manifest.json").read_text())
     except OSError:
-        print(f"[{tag}] nessun manifesto; rc {p.returncode}; {p.stderr[-300:]}", flush=True)
+        print(f"[{tag}] nessun manifesto; rc {p.returncode}; {err_s[-300:]}", flush=True)
         return None
     s = m.get("load_summary") or {}
-    tokens = n * OUT_LEN
+    tokens = (s.get("completed") or 0) * OUT_LEN
     e = m["gpu"]["energy_millijoules"]
     active = m["timing_s"]["active_reported_by_benchmark"]
     row = {
@@ -89,8 +109,9 @@ def run(tag, adapters, n, c, window, seed=None, weights=None):
         "active_s": active, "preamble_s": m["timing_s"]["preamble"],
         "output_throughput": s.get("output_throughput"),
         "energy_mj": e, "energy_source": m["gpu"]["energy_source"],
-        "j_per_token": (e / 1000 / tokens) if e is not None else None,
-        "s_per_token": (active / tokens) if active else None,
+        "tokens": tokens,
+        "j_per_token": (e / 1000 / tokens) if e is not None and tokens else None,
+        "s_per_token": (active / tokens) if active and tokens else None,
         "prefix_hits": m["prefix_cache_hits_in_cell"],
         "tokenizer_mismatch": m["tokenizer_mismatch"],
         "lora_observation": m.get("lora_observation"),
@@ -106,8 +127,11 @@ def run(tag, adapters, n, c, window, seed=None, weights=None):
 
 def cell(tag, adapters, n, c, window):
     r = run(tag, adapters, n, c, window)
-    if r is not None and r["verdict"] == "discard" and not r["contained"]:
-        r = run(tag + "-w2", adapters, n, c, window * 2)
+    if r is not None and r["verdict"] == "discard":
+        if r["contained"]:
+            r = run(tag + "-bis", adapters, n, c, window)
+        else:
+            r = run(tag + "-w2", adapters, n, c, window * 2)
     return r
 
 
@@ -174,9 +198,9 @@ for i in range(1, 4):
 
 P = summary["d8_idle"]["watts"]
 for r in cells:
-    if P is not None and r["energy_mj"] is not None and r["active_s"]:
+    if P is not None and r["energy_mj"] is not None and r["active_s"] and r["tokens"]:
         e_active = r["energy_mj"] / 1000 - P * (r["window"] - r["active_s"])
-        r["j_per_token_idle_corrected"] = e_active / (r["n"] * OUT_LEN)
+        r["j_per_token_idle_corrected"] = e_active / r["tokens"]
 
 d3 = {k: {m: stats(rows, m) for m in ("j_per_token", "j_per_token_idle_corrected", "s_per_token")}
       for k, rows in reps.items()}
