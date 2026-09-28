@@ -1,10 +1,12 @@
-"""Sceglie i semi delle celle del piano prima del nodo.
+"""Sceglie i semi delle celle di un piano prima del nodo.
 
-Per ogni cella di plan.CELLS cerca, dal seme iniziale in su, un seme
-principale e uno di riserva per il rilancio (r30 ne ha uno solo, usato due
-volte per disegno). Un seme e' accettato se:
-- ogni prompt ha esattamente plan.IN_LEN token;
-- nessuna richiesta condivide il primo blocco di plan.BLOCK token con
+Il piano e' un modulo con IN_LEN, BLOCK e CELLS: plan (seconda prova
+generale, il default) o campaign_plan (campagna). Per ogni cella di CELLS
+cerca, dal seme iniziale in su, un seme principale e uno di riserva per il
+rilancio (r30 del piano plan ne ha uno solo, usato due volte per disegno).
+Un seme e' accettato se:
+- ogni prompt ha esattamente IN_LEN token;
+- nessuna richiesta condivide il primo blocco di BLOCK token con
   un'altra richiesta dello stesso adattatore nella cella, nel seme principale
   della stessa cella (per la riserva) o nelle due celle precedenti del piano.
 
@@ -13,17 +15,20 @@ mancante fa mancare i successivi (vllm/v1/core/single_type_kv_cache_manager.py:
 790-791, vLLM 0.30.0). Due celle bastano: la coda dei blocchi liberi e' LRU
 (v1/core/kv_cache_utils.py:255-257), i blocchi in cache tornano in fondo
 (v1/core/block_pool.py:792-798) e i nuovi si prendono dalla testa (678); ogni
-cella D2 o D3 alloca almeno 336 x 512 = 172032 token, contro 89968 di cache
+cella misurata alloca almeno 336 x 512 = 172032 token, contro 89968 di cache
 misurati sul nodo. Che una cella basti a espellere le precedenti e'
 un'inferenza: la seconda cella e' il margine, e il controllo delle hit di
 run_cell.py resta la guardia.
 
 L'adattatore della richiesta i e' adattatori[i % len], come nel round-robin
-del benchmark. I prompt si generano con il codice del benchmark: parser
-(benchmarks/serve.py:1601), get_tokenizer come a 2107-2113, get_samples come
-a 2180, con il tokenizer dello snapshot pinnato. Uso:
-  seedcheck.py <snapshot del modello base> <seeds.json> [seme iniziale]
+del benchmark; per le celle sbilanciate e' la lista espansa che run_cell.py
+passa a --lora-modules. I prompt si generano con il codice del benchmark:
+parser (benchmarks/serve.py:1601), get_tokenizer come a 2107-2113,
+get_samples come a 2180, con il tokenizer dello snapshot pinnato. Uso:
+  seedcheck.py <snapshot del modello base> <seeds.json> [seme iniziale] [piano]
 """
+import hashlib
+import importlib
 import json
 import os
 import sys
@@ -36,7 +41,8 @@ from vllm.tokenizers import get_tokenizer
 from vllm.utils.argparse_utils import FlexibleArgumentParser
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import plan  # noqa: E402
+PLAN_NAME = sys.argv[4] if __name__ == "__main__" and len(sys.argv) > 4 else "plan"
+plan = importlib.import_module(PLAN_NAME)
 
 MODEL = "Qwen/Qwen2.5-7B-Instruct"
 WINDOW = 2
@@ -102,7 +108,9 @@ def choose(start):
         chosen[tag] = {"seed": picks[0], "spare": picks[1] if len(picks) > 1 else None,
                        "adapters": adapters, "num_prompts": n}
         print(tag, chosen[tag]["seed"], chosen[tag]["spare"], flush=True)
-    return {"snapshot": SNAP, "start": start, "block": plan.BLOCK, "in_len": plan.IN_LEN,
+    return {"plan": PLAN_NAME,
+            "plan_sha256": hashlib.sha256(open(plan.__file__, "rb").read()).hexdigest(),
+            "snapshot": SNAP, "start": start, "block": plan.BLOCK, "in_len": plan.IN_LEN,
             "window_cells": WINDOW, "cells": chosen, "rejected": rejected}
 
 
