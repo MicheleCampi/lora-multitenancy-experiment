@@ -19,6 +19,37 @@ drv=$(printf '%s' "$q" | cut -d, -f2 | xargs)
 [ "$name" = "NVIDIA A10" ] || fail "GPU attesa NVIDIA A10, trovata: $name"
 [ "${drv%%.*}" -ge 580 ] || fail "driver $drv < 580: torch 2.13.0 usa CUDA 13.0"
 
+echo "== memoria della GPU (ECC)"
+# Il 28/9 un A10 con 373452 errori DRAM non correggibili nella sua storia ha
+# superato questa fase e ha fatto fallire vllm serve al primo forward ("CUDA
+# error: uncorrectable ECC error encountered"). Si legge nvidia-smi -q -d ECC,
+# nel formato osservato con il driver 580.105.08: si ferma se l'ECC non e'
+# abilitato, se un contatore non correggibile (Volatile o Aggregate) e' > 0, se
+# una riparazione e' in sospeso o una soglia superata, o se il formato non e'
+# riconosciuto. Gli errori correggibili si riportano soltanto.
+ecc=$(nvidia-smi -q -d ECC) || fail "nvidia-smi -q -d ECC non risponde"
+printf '%s\n' "$ecc" | awk -F' : ' '
+  { key = $1; sub(/^ +/, "", key); sub(/ +$/, "", key); val = $2 }
+  NF == 1 && key != "" { sec = key; next }
+  sec == "ECC Mode" && key == "Current" { mode = val }
+  (sec == "Volatile" || sec == "Aggregate") && key ~ /Uncorrectable/ {
+    unc[sec] += val; if (key == "DRAM Uncorrectable") seen[sec] = 1
+    if (val + 0 > 0) bad = bad " " sec ": " key " = " val ";"
+  }
+  (sec == "Volatile" || sec == "Aggregate") && key ~ /Correctable/ && key !~ /Uncorrectable/ {
+    cor[sec] += val
+  }
+  (key ~ /Repair Pending$/ || key ~ /Threshold Exceeded$/) && val != "No" {
+    bad = bad " " key " = " val ";"
+  }
+  END {
+    printf "ECC %s | non correggibili: volatile %d, aggregate %d | correggibili: volatile %d, aggregate %d\n",
+      mode, unc["Volatile"], unc["Aggregate"], cor["Volatile"], cor["Aggregate"]
+    if (mode != "Enabled") { print "ECC non abilitato: i contatori non provano nulla"; exit 1 }
+    if (!seen["Volatile"] || !seen["Aggregate"]) { print "formato ECC non riconosciuto"; exit 1 }
+    if (bad != "") { print "errori:" bad; exit 1 }
+  }' || fail "memoria della GPU non sana o non verificabile"
+
 echo "== sistema"
 . /etc/os-release
 echo "$PRETTY_NAME"
