@@ -1,0 +1,3 @@
+nohup: ignoring input
+vllm serve avviato, PID 3969
+FASE2 FALLITA: vllm serve terminato con codice 1; log: /home/ubuntu/lora-run/logs/serve.log

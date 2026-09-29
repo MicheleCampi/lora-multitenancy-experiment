@@ -1,0 +1,148 @@
+{
+ "schema": "lora-cell/1",
+ "cell": {
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "adapters": [
+   "a1",
+   "a2",
+   "a3",
+   "a4",
+   "a5",
+   "a6",
+   "a7",
+   "a8"
+  ],
+  "weights": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "lora_modules_as_passed": [
+   "a1",
+   "a2",
+   "a3",
+   "a4",
+   "a5",
+   "a6",
+   "a7",
+   "a8"
+  ],
+  "num_prompts": 168,
+  "max_concurrency": 64,
+  "input_len": 256,
+  "output_len": 256,
+  "window_secs": 124,
+  "seed": 1011,
+  "server_pid": 5087
+ },
+ "commands": {
+  "measure": [
+   "/home/ubuntu/lora-node-bundle/inferscope",
+   "--sample-only",
+   "--pid",
+   "5087",
+   "--include-descendants",
+   "--duration-secs",
+   "124",
+   "--metrics-endpoint",
+   "http://127.0.0.1:8000/metrics",
+   "--engine",
+   "vllm",
+   "--model",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "--json",
+   "--gpu"
+  ],
+  "load": [
+   "/home/ubuntu/lora-run/venv/bin/vllm",
+   "bench",
+   "serve",
+   "--backend",
+   "openai",
+   "--base-url",
+   "http://127.0.0.1:8000",
+   "--endpoint",
+   "/v1/completions",
+   "--model",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "--dataset-name",
+   "random",
+   "--num-prompts",
+   "168",
+   "--random-input-len",
+   "256",
+   "--random-output-len",
+   "256",
+   "--max-concurrency",
+   "64",
+   "--ignore-eos",
+   "--seed",
+   "1011",
+   "--lora-modules",
+   "a1",
+   "a2",
+   "a3",
+   "a4",
+   "a5",
+   "a6",
+   "a7",
+   "a8",
+   "--lora-assignment",
+   "round-robin",
+   "--save-result",
+   "--save-detailed",
+   "--result-dir",
+   "/home/ubuntu/lora-run/results/d3-n8-r3",
+   "--result-filename",
+   "load.json"
+  ]
+ },
+ "timing_s": {
+  "server_wait": 0.073,
+  "load_started_after_measure": 0.0,
+  "load_finished": 57.817,
+  "measure_finished": 124.037,
+  "measure_alive_at_load_end": true,
+  "load_process": 57.817,
+  "active_reported_by_benchmark": 48.49061798899993,
+  "preamble": 9.326
+ },
+ "exit_codes": {
+  "measure": 0,
+  "load": 0
+ },
+ "gpu": {
+  "required": true,
+  "energy_millijoules": 11535737,
+  "energy_source": "counter"
+ },
+ "prefix_cache_hits_in_cell": 0.0,
+ "tokenizer_mismatch": false,
+ "containment": {
+  "load_inside_window": true,
+  "no_request_fraction_of_window": 0.6089
+ },
+ "load_summary": {
+  "completed": 167,
+  "failed": 1,
+  "total_output_tokens": 42752,
+  "output_throughput": 881.6550865509338,
+  "mean_ttft_ms": 1615.741591305402,
+  "mean_itl_ms": 56.36107837365265
+ },
+ "lora_observation": {
+  "latest": {
+   "series": {
+    "running_lora_adapters": [],
+    "waiting_lora_adapters": [],
+    "max_lora": 8,
+    "value": 1790428223.2824094
+   }
+  }
+ }
+}

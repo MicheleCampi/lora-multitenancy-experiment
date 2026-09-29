@@ -1,0 +1,57 @@
+{
+ "base": {
+  "repo": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28"
+ },
+ "a1": {
+  "repo": "codewithdark/mlpr-qwen2.5-7b-instruct-50ep-adaptive",
+  "revision": "3d55449ee2e2c886138f181f905f37afe2672d28",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--codewithdark--mlpr-qwen2.5-7b-instruct-50ep-adaptive/snapshots/3d55449ee2e2c886138f181f905f37afe2672d28"
+ },
+ "a2": {
+  "repo": "namanadep/Qwen2.5-7B-Manus-Distill",
+  "revision": "097382c877a5669ff4d720725759ccfd0edd82bb",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--namanadep--Qwen2.5-7B-Manus-Distill/snapshots/097382c877a5669ff4d720725759ccfd0edd82bb"
+ },
+ "a3": {
+  "repo": "Manikanta23/qwen2.5-7b-rtl-vlsi-lora",
+  "revision": "af13b834cc11a2972356570bf0eb0190dea017ea",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--Manikanta23--qwen2.5-7b-rtl-vlsi-lora/snapshots/af13b834cc11a2972356570bf0eb0190dea017ea"
+ },
+ "a4": {
+  "repo": "MirzaJunaid/Amna-AI",
+  "revision": "873d03b5843df7e214957ffc6630ae6302956ab5",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--MirzaJunaid--Amna-AI/snapshots/873d03b5843df7e214957ffc6630ae6302956ab5"
+ },
+ "a5": {
+  "repo": "Tamir39/qwen2_5-7b-vietnam-tax-lora",
+  "revision": "4b46d018068369d0a2361b7b8eed19cc22b9beaf",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--Tamir39--qwen2_5-7b-vietnam-tax-lora/snapshots/4b46d018068369d0a2361b7b8eed19cc22b9beaf"
+ },
+ "a6": {
+  "repo": "millat/Qwen2.5-7B-BDLAW-LoRA",
+  "revision": "73dc7a0cc673d4f1e9d9c1116d435ec376c8d9e5",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--millat--Qwen2.5-7B-BDLAW-LoRA/snapshots/73dc7a0cc673d4f1e9d9c1116d435ec376c8d9e5"
+ },
+ "a7": {
+  "repo": "keer2004ks/ade-lora-adapter",
+  "revision": "195ae4711d262f8d08a397f7c476773cc2f85f69",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--keer2004ks--ade-lora-adapter/snapshots/195ae4711d262f8d08a397f7c476773cc2f85f69"
+ },
+ "a8": {
+  "repo": "ritam-05/qwen2.5-7b-sql-specialist",
+  "revision": "0505bdf624ae32d3d7a571135a68100437a0d8ea",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--ritam-05--qwen2.5-7b-sql-specialist/snapshots/0505bdf624ae32d3d7a571135a68100437a0d8ea"
+ },
+ "r1": {
+  "repo": "diegogs1451/qwen2.5-7B-Instruct-dUO-finetuned-20260706-3epochs",
+  "revision": "dfc855dfad125ad64f6d7012458b6d18a55b18d5",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--diegogs1451--qwen2.5-7B-Instruct-dUO-finetuned-20260706-3epochs/snapshots/dfc855dfad125ad64f6d7012458b6d18a55b18d5"
+ },
+ "r2": {
+  "repo": "vidyaganga/slytherin-loyalty-organism-v21",
+  "revision": "1074dad1bd05b3d5ebdbe27fb4fc8aaad48e6c43",
+  "path": "/home/ubuntu/.cache/huggingface/hub/models--vidyaganga--slytherin-loyalty-organism-v21/snapshots/1074dad1bd05b3d5ebdbe27fb4fc8aaad48e6c43"
+ }
+}

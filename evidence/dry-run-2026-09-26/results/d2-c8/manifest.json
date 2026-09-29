@@ -1,0 +1,148 @@
+{
+ "schema": "lora-cell/1",
+ "cell": {
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "adapters": [
+   "a1",
+   "a2",
+   "a3",
+   "a4",
+   "a5",
+   "a6",
+   "a7",
+   "a8"
+  ],
+  "weights": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "lora_modules_as_passed": [
+   "a1",
+   "a2",
+   "a3",
+   "a4",
+   "a5",
+   "a6",
+   "a7",
+   "a8"
+  ],
+  "num_prompts": 168,
+  "max_concurrency": 8,
+  "input_len": 256,
+  "output_len": 256,
+  "window_secs": 647,
+  "seed": 1005,
+  "server_pid": 5087
+ },
+ "commands": {
+  "measure": [
+   "/home/ubuntu/lora-node-bundle/inferscope",
+   "--sample-only",
+   "--pid",
+   "5087",
+   "--include-descendants",
+   "--duration-secs",
+   "647",
+   "--metrics-endpoint",
+   "http://127.0.0.1:8000/metrics",
+   "--engine",
+   "vllm",
+   "--model",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "--json",
+   "--gpu"
+  ],
+  "load": [
+   "/home/ubuntu/lora-run/venv/bin/vllm",
+   "bench",
+   "serve",
+   "--backend",
+   "openai",
+   "--base-url",
+   "http://127.0.0.1:8000",
+   "--endpoint",
+   "/v1/completions",
+   "--model",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "--dataset-name",
+   "random",
+   "--num-prompts",
+   "168",
+   "--random-input-len",
+   "256",
+   "--random-output-len",
+   "256",
+   "--max-concurrency",
+   "8",
+   "--ignore-eos",
+   "--seed",
+   "1005",
+   "--lora-modules",
+   "a1",
+   "a2",
+   "a3",
+   "a4",
+   "a5",
+   "a6",
+   "a7",
+   "a8",
+   "--lora-assignment",
+   "round-robin",
+   "--save-result",
+   "--save-detailed",
+   "--result-dir",
+   "/home/ubuntu/lora-run/results/d2-c8",
+   "--result-filename",
+   "load.json"
+  ]
+ },
+ "timing_s": {
+  "server_wait": 0.069,
+  "load_started_after_measure": 0.0,
+  "load_finished": 265.87,
+  "measure_finished": 647.035,
+  "measure_alive_at_load_end": true,
+  "load_process": 265.869,
+  "active_reported_by_benchmark": 256.350275755,
+  "preamble": 9.519
+ },
+ "exit_codes": {
+  "measure": 0,
+  "load": 0
+ },
+ "gpu": {
+  "required": true,
+  "energy_millijoules": 61078390,
+  "energy_source": "counter"
+ },
+ "prefix_cache_hits_in_cell": 0.0,
+ "tokenizer_mismatch": false,
+ "containment": {
+  "load_inside_window": true,
+  "no_request_fraction_of_window": 0.6038
+ },
+ "load_summary": {
+  "completed": 168,
+  "failed": 0,
+  "total_output_tokens": 43008,
+  "output_throughput": 167.77044562691933,
+  "mean_ttft_ms": 523.8708131488006,
+  "mean_itl_ms": 45.81525305667605
+ },
+ "lora_observation": {
+  "latest": {
+   "series": {
+    "running_lora_adapters": [],
+    "waiting_lora_adapters": [],
+    "max_lora": 8,
+    "value": 1790427163.1765237
+   }
+  }
+ }
+}

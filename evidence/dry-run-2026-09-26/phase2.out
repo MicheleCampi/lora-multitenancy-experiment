@@ -1,0 +1,15 @@
+nohup: ignoring input
+vllm serve avviato, PID 5087
+pronto in 30 s; modelli: ['Qwen/Qwen2.5-7B-Instruct', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8']
+cmdline del PID: /home/ubuntu/lora-run/venv/bin/python3 /home/ubuntu/lora-run/venv/bin/vllm serve Qwen/Qwen2.5-7B-Instruct --revision a09a35458c702b33eeacc393d103063234e8bc28 --
+figli (children): [5157, 5158] | figli (ps --ppid): [5157, 5158]
+  figlio 5157: /home/ubuntu/lora-run/venv/bin/python3 -c from multiprocessing.resource_tracker import main;main(46) | nipoti: []
+  figlio 5158: VLLM::EngineCore | nipoti: []
+processi GPU: 5158, VLLM::EngineCore, 21322 MiB
+prefix_cache_hits_total: 0.0
+inferscope --gpu 3 s: energy_millijoules 159923 | energy_source counter
+D1 dal log:
+  (EngineCore pid=5158) INFO 09-26 12:29:39 [gpu_worker.py:640] Available KV cache memory: 4.81 GiB
+  (EngineCore pid=5158) INFO 09-26 12:29:39 [kv_cache_utils.py:2395] GPU KV cache size: 89,968 tokens, Maximum concurrency for 512 tokens per request: 175.72x
+memoria GPU: 21333 MiB, 23028 MiB
+FASE2 OK

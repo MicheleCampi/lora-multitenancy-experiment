@@ -1,0 +1,6 @@
+nohup: ignoring input
+vllm serve avviato, PID 4962
+pronto in 0 s; modelli: ['Qwen/Qwen2.5-7B-Instruct', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8']
+cmdline del PID: /home/ubuntu/lora-run/venv/bin/python3 /home/ubuntu/lora-run/venv/bin/vllm serve Qwen/Qwen2.5-7B-Instruct --revision a09a35458c702b33eeacc393d103063234e8bc28 --
+figli (children): [] | figli (ps --ppid): []
+FASE2 FALLITA: il PID non ha figli: l'EngineCore non e' un figlio diretto

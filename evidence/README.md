@@ -4,8 +4,8 @@ What is here backs numbers that appear in the documents of this repository,
 so they can be recomputed rather than believed. `bench-runs/` and
 `count-proxy.py` are not measurements of the campaign: they come from
 llm-d-inference-sim at `e924683`, whose latencies are declared rather than
-computed, on a CPU-only VM. `dry-run-2026-09-28/` comes from a GPU node
-and has its own README.
+computed, on a CPU-only VM. The directories named after a date come from
+GPU nodes, and each has its own README.
 
 ## `bench-runs/`
 
@@ -31,9 +31,19 @@ once is enough.
 Run it as `python3 evidence/count-proxy.py http://<server> <port>` and
 point the benchmark at the proxy's port; it prints its counts on SIGINT.
 
+## `dry-run-2026-09-26/`
+
+The first dry run, on one NVIDIA A10 on 2026-09-26. It found defects in the
+harness that later commits fix, and their messages cite it.
+
 ## `dry-run-2026-09-28/`
 
 The second dry run, on one NVIDIA A10 on 2026-09-28: the files the
 amendments of 2026-09-29 at the end of `PROTOCOL.md` rest on. Its own
 README says what is there, where it comes from and how the figures are
 recomputed.
+
+## `faulty-node-2026-09-28/`
+
+A node rented for the second dry run on which vLLM could not start: the GPU
+reported an uncorrectable ECC error.
