@@ -512,3 +512,167 @@ which reports a failure is discarded and re-run.
 
 The dry run happens on a node that is paid for, so it is part of the
 budget, not a preliminary outside it.
+
+## Amendments, 2026-09-29, before the campaign
+
+Everything above was written on 2026-09-20 and is left as it was. Two dry
+runs followed, on 2026-09-26 and 2026-09-28; what they settled is recorded
+here, before the campaign's first cell, and each amendment names the lines
+it changes. The measured figures are from the second dry run, and the
+files they rest on are in `evidence/dry-run-2026-09-28/`:
+`harness/analyze.py` recomputes those in A1, A3, A4, A6 and A10.6 from the
+cells' manifests and idle measurements; the counts in A8 are read from
+`metrics-final.txt`, and the two figures in A10.1 from `phase2.out`. Line
+references into vLLM are to `v0.30.0`, the release the campaign runs.
+
+### A1. Which cost per token decides (lines 80, 88, 99)
+
+H1 and H2 are decided on energy per generated token net of idle:
+
+    (E - P_idle x (window - active)) / tokens
+
+where E is the GPU energy over the measurement window, active the
+benchmark's own duration, tokens the completed requests times the output
+length, and P_idle the mean power of the idle measurements taken in the
+same node session. Time per token (active / tokens) and raw energy per
+token (E / tokens) are reported beside it for every cell.
+
+Raw energy also counts the part of the window in which no request is in
+flight, and that part depends on the window, not on how many adapters are
+served. The choice is not neutral: at the second dry run the three
+measures gave N=8 against N=1 margins of +7.42% net, +7.30% time and
++2.77% raw, so against a 5% threshold the metric decides the outcome. It is
+fixed here with those three numbers known; they come from the dry run, and
+none from the campaign.
+
+### A2. How the band enters the decision (lines 80-82, 88-89)
+
+The band of a configuration is (max - min) / mean over its kept
+repetitions.
+
+- **H1**, at each concurrency: m = (N=8 uniform - N=1) / N=1. Falsified
+  if m < 5%. If the band of either side is 5% or more, or either side has
+  fewer than two kept repetitions, the comparison cannot resolve the
+  threshold and is reported as inconclusive.
+- **H2**, at each N in {2, 4, 8} and each concurrency:
+  d = (skewed - uniform) / uniform. Falsified at that level if |d| is
+  smaller than the larger of the two bands; inconclusive if either side
+  has fewer than two kept repetitions. The six judgements are reported one
+  by one and not merged into one.
+
+These rules are the ones `harness/analyze.py` applies.
+
+### A3. The threshold, revisited once (lines 105-111)
+
+Revisited after the second dry run: it stays at 5%. The margin it is
+tested against, at concurrency 128 with 336 prompts and four repetitions
+per side, is +7.42% net, with bands of 1.44% at N=1 and 0.23% at N=8.
+
+### A4. Concurrency (line 488)
+
+The concurrency at which the GPU is the bottleneck is taken as the lowest
+level whose output throughput is at least 90% of the highest measured,
+over 64, 96, 128 and 160 with N=8 uniform and 672 prompts (the rule of
+`harness/node/phase3.py`). At the second dry run the four levels gave
+977.8, 1205.9, 1341.3 and 1325.8 tokens/s, so the level is 128; 96 reached
+89.9%, just under the rule.
+
+The campaign measures every configuration at 128 and again at 64. A
+multi-tenancy cost that changes with load would be a finding of its own,
+and measuring both levels in one session on one node keeps the node out
+of that comparison.
+
+### A5. Cells, repetitions, order (lines 434-443)
+
+`num_prompts` is 336, twice 168. Every configuration is measured four
+times at each concurrency: 7 x 2 x 4 = 56 cells, in four rounds that each
+run the fourteen combinations once, each round rotated three positions
+from the one before. Windows are fixed: 165 s at 128 and 216 s at 64.
+Idle power is measured for 60 s after a discarded warm-up, again after the
+second round, and at the end. The whole campaign runs in one node session.
+The plan is `harness/node/campaign_plan.py`; the runner is
+`harness/node/campaign.py`.
+
+### A6. The prompts (lines 352-353, 373)
+
+Requests do not carry the same prompt. The benchmark's `random` dataset
+generates one prompt per request, and what is held fixed is the length:
+256 tokens in, 256 out. "The shared prompt" at line 373 is to be read the
+same way.
+
+Prefix caching is left at its default, which vLLM derives from the model
+(`vllm/engine/arg_utils.py:2798`, `2828-2829`) and which was on at the
+second dry run: its `r30-b` cell, sent the seed `r30-a` had just used,
+recorded 5,760 prefix-cache hits. Generated prompts can share their first
+block: of the 566 seeds examined for the campaign, 128 were rejected
+because two prompts of one cell began with the same 16 tokens for the same
+adapter (`harness/node/campaign-seeds.json`). A cell whose prompts share a
+prefix would skip part of the prefill it is charged for. The seeds are
+therefore chosen before the node by `harness/node/seedcheck.py`: a seed is
+rejected if any of its prompts is not 256 tokens long, or if the first
+block of 16 tokens of a prompt repeats for the same adapter within the
+cell, or in either of the two cells before it. A cell that still records a
+prefix-cache hit is discarded (A7).
+
+The benchmark counts prompt lengths with the tokenizer of the pinned
+snapshot of the base model, passed as `--tokenizer`: the revision the
+server loads with `--tokenizer-revision` (A9).
+
+### A7. Discard and rerun (lines 157-160, 506-511)
+
+A cell is kept only if its load ran inside the measurement window, no
+request failed, every declared request completed, the GPU energy was
+recorded, the prefix cache recorded no hit, and every prompt had the
+declared length (`harness/run_cell.py`). A discarded cell is rerun once
+with a spare seed chosen by the same check: with the same window if its
+load was contained, with twice the window if not. If the rerun is
+discarded too, that repetition is missing, and is reported as missing
+rather than replaced.
+
+### A8. The 75% (lines 402-405, 427-432)
+
+vLLM counts requests per adapter but does not export the counts:
+`vllm/v1/metrics/stats.py:641-643` stores them, and
+`vllm/v1/metrics/loggers.py:1085-1096` exports only the adapter names, as
+labels of a gauge set to the current time. The two labels,
+`running_lora_adapters` and `waiting_lora_adapters`, carry the same list:
+every adapter with a request in either state is written into both
+dictionaries (`stats.py:641-643`), and at the second dry run all 31 label
+combinations recorded had the two identical. All 349 series carrying a
+`model_name` label at the end of that run named the base model. The
+realised share cannot be read from the server.
+
+It is established by construction instead: round-robin gives the k-th
+request the k-th entry of the list, modulo its length
+(`vllm/benchmarks/serve.py:918-924`), and the list as passed is recorded
+in every cell's manifest. The rule was also observed once, at the bench,
+by the proxy in `evidence/count-proxy.py`: twelve requests split 4/4/4
+over three adapters (`evidence/README.md`). Logging every request on the
+server would count the share, but would add work to the server during the
+measurement, so it is not done.
+
+### A9. The server line (lines 451-458)
+
+As run by `harness/node/phase2.py`: `--gpu-memory-utilization 0.92` and
+`--max-model-len 512`, that is 256 tokens in and 256 out. With
+`max_tokens` at 256, a prompt longer than 256 tokens is refused with a
+validation error rather than served (the limits are set at
+`vllm/entrypoints/openai/completion/protocol.py:267-268`; the check is
+`vllm/renderers/params.py:222`, `500-507`). The line also pins the base
+model with `--revision` and `--tokenizer-revision`, and passes
+`--api-server-count 1`.
+
+### A10. The dry run's questions (lines 486-504)
+
+1. The eight slots fit alongside the 7B base: `phase2.out` records 4.81
+   GiB available for the KV cache, 89,968 tokens. The fallback of lines
+   272-276 does not apply.
+2. See A4.
+3. See A5.
+4. `vllm:lora_requests_info` is exposed and names only the adapters the
+   run drives, `a1` to `a8` (see A8 for what its labels do not say).
+5. `phase2.out` records the process using the GPU as `VLLM::EngineCore`,
+   a direct child of the server, which is what `--include-descendants`
+   reaches.
+6. The time the benchmark's process spends outside its requests, from
+   start to exit, was 8.457 s to 9.742 s over the 13 kept cells.
