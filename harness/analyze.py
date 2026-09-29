@@ -18,6 +18,11 @@ For each cell directory (warmup excluded):
 - J/token net = (energy - P_idle x (window - active)) / tokens, with P_idle
   the mean power of the idle measurements in the directory.
 
+Also reported: for each configuration measured at more than one
+concurrency, the output throughput at each level as a share of the highest,
+and the lowest level reaching 90% of it (the rule phase3.py uses to choose
+c*); and the range of the benchmark's preamble over the kept cells.
+
 Decision rules, fixed on 2026-09-29 before the campaign (PROTOCOL.md,
 amendments). The deciding metric is J/token net; band = (max - min) / mean
 over the kept repetitions of one configuration.
@@ -38,6 +43,7 @@ import sys
 
 THRESHOLD = 0.05
 METRICS = ("j_net", "s", "j_raw")
+C_STAR_SHARE = 0.9
 
 
 def verdict(m: dict) -> tuple[bool, list[str]]:
@@ -99,8 +105,12 @@ def analyze(res: str) -> dict:
         n = len(set(c["adapters"]))
         skewed = len(set(c["weights"])) > 1
         key = f"n{n}{'s' if skewed else 'u'}-c{c['max_concurrency']}-p{c['num_prompts']}"
-        row = {"tag": tag, "config": key, "keep": ok, "why": why}
+        row = {"tag": tag, "config": key, "keep": ok, "why": why,
+               "n": n, "skewed": skewed, "c": c["max_concurrency"],
+               "prompts": c["num_prompts"]}
         if ok:
+            row["throughput"] = m["load_summary"].get("output_throughput")
+            row["preamble"] = m["timing_s"].get("preamble")
             tokens = m["load_summary"]["completed"] * c["output_len"]
             e = m["gpu"]["energy_millijoules"] / 1000
             active = m["timing_s"]["active_reported_by_benchmark"]
@@ -157,8 +167,27 @@ def analyze(res: str) -> dict:
                 "band_uniform": u["band"], "band_skewed": s["band"],
                 "reps": [u["n"], s["n"]], "judgement": judgement}
 
+    sweeps = {}
+    for rows in groups.values():
+        r0 = rows[0]
+        name = f"n{r0['n']}{'s' if r0['skewed'] else 'u'}-p{r0['prompts']}"
+        thr = [r["throughput"] for r in rows if r["throughput"] is not None]
+        if thr:
+            sweeps.setdefault(name, {})[r0["c"]] = sum(thr) / len(thr)
+    sweep = {}
+    for name, levels in sorted(sweeps.items()):
+        if len(levels) < 2:
+            continue
+        top = max(levels.values())
+        share = {c: levels[c] / top for c in sorted(levels)}
+        sweep[name] = {"throughput": {c: levels[c] for c in sorted(levels)}, "share": share,
+                       "c_star": min(c for c in share if share[c] >= C_STAR_SHARE)}
+    pre = [r["preamble"] for r in cells if r["keep"] and r.get("preamble") is not None]
+    preamble = {"n": len(pre), "min": min(pre) if pre else None, "max": max(pre) if pre else None}
+
     return {"results": os.path.abspath(res), "idle": idle, "p_idle_watts": p_idle,
-            "cells": cells, "by_config": by_config, "h1": h1, "h2": h2}
+            "cells": cells, "by_config": by_config, "h1": h1, "h2": h2,
+            "sweep": sweep, "preamble": preamble}
 
 
 def pct(x):
@@ -181,6 +210,13 @@ def report(r: dict) -> None:
         print(k, " | ".join(
             f"{mt} n={st[mt]['n']} mean={st[mt]['mean']:.6g} band={band(st[mt]['band'])}"
             for mt in METRICS if st[mt]["mean"] is not None))
+    for k, sw in r["sweep"].items():
+        print(f"sweep {k}: " + ", ".join(
+            f"c={c} {sw['throughput'][c]:.1f} tok/s ({100 * sw['share'][c]:.1f}%)"
+            for c in sw["throughput"]) + f" -> lowest at >= 90%: c={sw['c_star']}")
+    p = r["preamble"]
+    if p["n"]:
+        print(f"preamble over {p['n']} kept cells: {p['min']:.3f} s to {p['max']:.3f} s")
     for k, h in r["h1"].items():
         print(f"H1 {k}: margin j_net {pct(h['margin']['j_net'])}, s {pct(h['margin']['s'])}, "
               f"j_raw {pct(h['margin']['j_raw'])}; bands N=1 {band(h['band_n1'])}, "
