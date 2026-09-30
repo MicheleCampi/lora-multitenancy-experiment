@@ -676,3 +676,15 @@ model with `--revision` and `--tokenizer-revision`, and passes
    reaches.
 6. The time the benchmark's process spends outside its requests, from
    start to exit, was 8.457 s to 9.742 s over the 13 kept cells.
+
+### A11. Checkpoints in the adapters' repositories (lines 339-342)
+
+Added on 2026-09-30. One of the eight, not two, publishes intermediate
+checkpoints: `Tamir39/qwen2_5-7b-vietnam-tax-lora`, under
+`checkpoint-40/` and `checkpoint-60/`. `millat/Qwen2.5-7B-BDLAW-LoRA`
+publishes `gguf/` and `merged/`, and the reserve
+`diegogs1451/qwen2.5-7B-Instruct-dUO-finetuned-20260706-3epochs` also has
+`checkpoint-*/` directories. These are the file lists at the pinned
+revisions, which on 2026-09-30 are still each repository's current one.
+The rule is unchanged: only the two files at the root are downloaded
+(`harness/node/download.py`, line 44), so only they can be loaded.
