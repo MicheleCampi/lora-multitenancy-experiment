@@ -1,17 +1,17 @@
-"""Fase 2 - avvia vllm serve con la riga del protocollo completata, e verifica.
+"""Phase 2 - starts vllm serve on the completed protocol line, and checks it.
 
-Controlli bloccanti: il PID e' il processo vllm lanciato senza shell; i modelli
-esposti sono esattamente il base e a1..a8; i figli visti da
-/proc/<pid>/task/<pid>/children coincidono con ps --ppid; ogni processo che
-tiene la GPU sta nell'insieme che inferscope misura; il contatore della cache
-dei prefissi esiste; inferscope --gpu restituisce energia.
-Il server resta acceso alla fine. Scrive ~/lora-run/session.json.
+Blocking checks: the PID is the vllm process launched without a shell; the
+models exposed are exactly the base and a1..a8; the children seen in
+/proc/<pid>/task/<pid>/children match ps --ppid; every process that holds
+the GPU is in the set inferscope measures; the prefix-cache counter exists;
+inferscope --gpu returns energy.
+The server is left running at the end. Writes ~/lora-run/session.json.
 
-Prima di lanciare: se la porta risponde gia' la fase si ferma senza toccare
-nulla, perche' l'attesa accetterebbe la risposta di un altro server (26/9:
-"pronto in 0 s" da un server lanciato prima). session.json, server.pid e
-serve.log di un avvio precedente vengono rinominati con data e ora, non
-sovrascritti.
+Before launching: if the port already answers, the phase stops without
+touching anything, because the wait would accept another server's answer
+(2026-09-26: "pronto in 0 s", ready in 0 s, from a server launched earlier).
+session.json, server.pid and serve.log of a previous start are renamed with
+a date and time, not overwritten.
 """
 import json
 import os
@@ -35,7 +35,7 @@ NAMES = [f"a{i}" for i in range(1, 9)]
 
 
 def fail(msg: str) -> None:
-    print("FASE2 FALLITA:", msg, flush=True)
+    print("PHASE2 FAILED:", msg, flush=True)
     sys.exit(1)
 
 
@@ -57,18 +57,18 @@ def ps_children(pid: int) -> list[int]:
 
 
 if any(k.startswith("VLLM_") for k in os.environ):
-    fail("variabili VLLM_* nell'ambiente")
+    fail("VLLM_* variables in the environment")
 
 if port_in_use(PORT):
-    fail(f"la porta {PORT} risponde gia': un server e' attivo "
-         f"(ss -ltnp 'sport = :{PORT}'); nulla e' stato lanciato ne' modificato")
+    fail(f"port {PORT} already answers: a server is running "
+         f"(ss -ltnp 'sport = :{PORT}'); nothing was launched or changed")
 
 stamp = time.strftime("%Y%m%dT%H%M%S")
 for old in (R / "session.json", R / "server.pid", R / "logs" / "serve.log"):
     if old.exists():
         kept = old.with_name(f"{old.name}.{stamp}")
         old.rename(kept)
-        print("conservato:", kept, flush=True)
+        print("kept:", kept, flush=True)
 
 pins = json.loads((R / "pins.json").read_text())
 base = pins["base"]
@@ -88,13 +88,13 @@ proc = subprocess.Popen(argv, stdout=log, stderr=subprocess.STDOUT, env=env,
                         start_new_session=True)
 pid = proc.pid
 (R / "server.pid").write_text(str(pid))
-print("vllm serve avviato, PID", pid, flush=True)
+print("vllm serve started, PID", pid, flush=True)
 
 t0 = time.time()
 models = None
 while time.time() - t0 < 1800:
     if proc.poll() is not None:
-        fail(f"vllm serve terminato con codice {proc.returncode}; log: {R / 'logs' / 'serve.log'}")
+        fail(f"vllm serve exited with code {proc.returncode}; log: {R / 'logs' / 'serve.log'}")
     try:
         with urllib.request.urlopen(URL + "/v1/models", timeout=5) as r:
             models = json.load(r)
@@ -102,45 +102,45 @@ while time.time() - t0 < 1800:
     except OSError:
         time.sleep(2)
 if models is None:
-    fail("server non pronto in 1800 s")
+    fail("server not ready in 1800 s")
 ready_s = round(time.time() - t0)
 ids = sorted(m["id"] for m in models["data"])
-print(f"pronto in {ready_s} s; modelli: {ids}", flush=True)
+print(f"ready in {ready_s} s; models: {ids}", flush=True)
 if ids != sorted([base["repo"]] + NAMES):
-    fail(f"modelli esposti diversi dall'atteso: {ids}")
+    fail(f"models exposed differ from those expected: {ids}")
 
 cmd = cmdline(pid)
-print("cmdline del PID:", cmd[:160], flush=True)
+print("PID cmdline:", cmd[:160], flush=True)
 if "vllm" not in cmd:
-    fail("il PID non e' un processo vllm")
+    fail("the PID is not a vllm process")
 
 try:
     kids = sorted(int(x) for x in
                   pathlib.Path(f"/proc/{pid}/task/{pid}/children").read_text().split())
 except OSError as e:
-    fail(f"/proc/{pid}/task/{pid}/children illeggibile: {e}")
+    fail(f"/proc/{pid}/task/{pid}/children unreadable: {e}")
 ps_kids = ps_children(pid)
-print("figli (children):", kids, "| figli (ps --ppid):", ps_kids, flush=True)
+print("children (file):", kids, "| children (ps --ppid):", ps_kids, flush=True)
 if kids != ps_kids:
-    fail("il file children e ps --ppid non coincidono: inferscope non vedrebbe tutti i figli")
+    fail("the children file and ps --ppid differ: inferscope would not see every child")
 if not kids:
-    fail("il PID non ha figli: l'EngineCore non e' un figlio diretto")
+    fail("the PID has no children: the EngineCore is not a direct child")
 for k in kids:
-    print(f"  figlio {k}: {cmdline(k)[:100]} | nipoti: {ps_children(k)}", flush=True)
+    print(f"  child {k}: {cmdline(k)[:100]} | grandchildren: {ps_children(k)}", flush=True)
 
 q = subprocess.run(["nvidia-smi", "--query-compute-apps=pid,process_name,used_memory",
                     "--format=csv,noheader"], capture_output=True, text=True).stdout.strip()
-print("processi GPU:", q or "(nessuno)", flush=True)
+print("GPU processes:", q or "(none)", flush=True)
 gpu_pids = sorted({int(line.split(",")[0]) for line in q.splitlines() if line.strip()})
 if not gpu_pids:
-    fail("nvidia-smi non elenca processi GPU")
+    fail("nvidia-smi lists no GPU process")
 outside = sorted(set(gpu_pids) - {pid, *kids})
 if outside:
-    fail(f"processi GPU fuori dall'insieme misurato da inferscope: {outside}")
+    fail(f"GPU processes outside the set inferscope measures: {outside}")
 
 hits = counter_sum(METRICS, "vllm:prefix_cache_hits_total")
 if hits is None:
-    fail("vllm:prefix_cache_hits_total assente: il controllo di R30 non funzionerebbe")
+    fail("vllm:prefix_cache_hits_total missing: the R30 check would not work")
 print("prefix_cache_hits_total:", hits, flush=True)
 
 smoke = subprocess.run(
@@ -154,19 +154,19 @@ gpu = report.get("gpu") or {}
 print("inferscope --gpu 3 s: energy_millijoules", gpu.get("energy_millijoules"),
       "| energy_source", gpu.get("energy_source"), flush=True)
 if gpu.get("energy_millijoules") is None:
-    fail("inferscope --gpu non restituisce energia")
+    fail("inferscope --gpu returns no energy")
 
 text = (R / "logs" / "serve.log").read_text(errors="replace")
 d1 = [line.strip() for line in text.splitlines()
       if "Available KV cache memory" in line or "Maximum concurrency for" in line]
 mem = subprocess.run(["nvidia-smi", "--query-gpu=memory.used,memory.total", "--format=csv,noheader"],
                      capture_output=True, text=True).stdout.strip()
-print("D1 dal log:", *(d1 or ["(nessuna riga)"]), sep="\n  ")
-print("memoria GPU:", mem, flush=True)
+print("D1 from the log:", *(d1 or ["(no line)"]), sep="\n  ")
+print("GPU memory:", mem, flush=True)
 
 session = {"pid": pid, "argv": argv, "models": ids, "ready_s": ready_s, "children": kids,
            "gpu_pids": gpu_pids, "gpu_apps": q, "d1_log": d1, "gpu_memory": mem,
            "smoke_energy_mj": gpu.get("energy_millijoules"),
            "smoke_energy_source": gpu.get("energy_source")}
 (R / "session.json").write_text(json.dumps(session, indent=1))
-print("FASE2 OK", flush=True)
+print("PHASE2 OK", flush=True)

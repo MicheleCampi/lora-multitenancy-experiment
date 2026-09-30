@@ -1,13 +1,13 @@
-"""Piano della campagna (deciso il 28/9/2026).
+"""Campaign plan (decided on 2026-09-28).
 
-Le sette configurazioni di PROTOCOL.md:417-431 a due concorrenze: 128, il c*
-della seconda prova generale, e 64. Quattro ripetizioni in turni: ogni turno
-esegue le 14 combinazioni una volta, ruotate di ROTATION posizioni rispetto al
-turno precedente. 336 prompt per cella (multiplo di 168, PROTOCOL.md:434, e di
-28, la lista sbilanciata a N=8). Le finestre vengono dalle durate misurate il
-28/9: 64.6 s a c=128 con N=8, 88 s stimati a c=64. Unica fonte per seedcheck.py
-e campaign.py; le liste per adattatore sono quelle che run_cell.adapter_list
-passa al benchmark.
+The seven configurations of PROTOCOL.md:417-431 at two concurrencies: 128,
+the c* of the second dry run, and 64. Four repetitions in rounds: each round
+runs the 14 combinations once, rotated ROTATION positions from the round
+before. 336 prompts per cell (a multiple of 168, PROTOCOL.md:434, and of 28,
+the skewed list at N=8). Windows from the 2026-09-28 durations: the N=8 cells
+at c=128 ran 64.55-64.6 s; at c=64, 88 s scales d2-c64 (672 prompts) to 336.
+The single source for seedcheck.py and campaign.py; the per-adapter lists
+are those run_cell.adapter_list passes to the benchmark.
 """
 import os
 import sys
@@ -30,7 +30,7 @@ WARMUP_PROMPTS = 24
 ROTATION = 3
 ALL8 = [f"a{i}" for i in range(1, 9)]
 
-# (nome, adattatori, pesi): uniforme a ogni N, sbilanciata al 75% a ogni N > 1.
+# (name, adapters, weights): uniform at every N, skewed to 75% at every N > 1.
 CONFIGS = [
     ("n1u", ALL8[:1], [1]),
     ("n2u", ALL8[:2], [1, 1]),
@@ -49,6 +49,6 @@ for r in range(REPS):
         RUNS.append({"tag": f"r{r + 1}-{name}-c{c}", "config": name, "adapters": ads,
                      "weights": w, "c": c, "round": r + 1})
 
-# Per seedcheck.py: (tag, lista passata al benchmark, prompt), in ordine di esecuzione.
+# For seedcheck.py: (tag, list passed to the benchmark, prompts), in run order.
 CELLS = ([("warmup", ALL8, WARMUP_PROMPTS)]
          + [(x["tag"], adapter_list(x["adapters"], x["weights"]), PROMPTS) for x in RUNS])

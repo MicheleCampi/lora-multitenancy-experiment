@@ -1,10 +1,10 @@
-"""Download pinnati: modello base, otto adattatori e due riserve.
+"""Pinned downloads: the base model, eight adapters and two reserves.
 
-Il modello base si scarica per intero alla sua revisione; degli adattatori
-solo i due file della radice (PROTOCOL.md 339-342), perche' alcuni repository
-pubblicano anche checkpoint-*, gguf/ e merged/. Ogni percorso restituito deve
-terminare con snapshots/<sha>: e' la prova che il pin scaricato e' quello
-dichiarato. Scrive ~/lora-run/pins.json (nome -> repository, revisione, percorso).
+The base model is downloaded whole at its revision; of each adapter only the
+two files at the root (PROTOCOL.md 339-342), because some repositories also
+publish checkpoint-*, gguf/ and merged/. Every path returned must end with
+snapshots/<sha>: that is the proof that the pin downloaded is the one
+declared. Writes ~/lora-run/pins.json (name -> repository, revision, path).
 """
 import json
 import pathlib
@@ -29,21 +29,21 @@ ROOT_FILES = ["adapter_config.json", "adapter_model.safetensors"]
 
 def pinned(path: str, sha: str) -> pathlib.Path:
     p = pathlib.Path(path)
-    assert p.parts[-2:] == ("snapshots", sha), f"percorso non pinnato: {p}"
+    assert p.parts[-2:] == ("snapshots", sha), f"path not pinned: {p}"
     return p
 
 
 pins = {}
 repo, sha = BASE
 base = pinned(snapshot_download(repo, revision=sha), sha)
-assert any(base.glob("*.safetensors")), "nessun safetensors nel modello base"
+assert any(base.glob("*.safetensors")), "no safetensors in the base model"
 pins["base"] = {"repo": repo, "revision": sha, "path": str(base)}
 print("base", repo, sha, base, flush=True)
 
 for name, repo, sha in ADAPTERS:
     p = pinned(snapshot_download(repo, revision=sha, allow_patterns=ROOT_FILES), sha)
     for f in ROOT_FILES:
-        assert (p / f).is_file(), f"{name}: manca {f}"
+        assert (p / f).is_file(), f"{name}: {f} missing"
     cfg = json.loads((p / "adapter_config.json").read_text())
     assert cfg.get("r") == 16, (name, "r", cfg.get("r"))
     assert not cfg.get("modules_to_save"), (name, "modules_to_save")

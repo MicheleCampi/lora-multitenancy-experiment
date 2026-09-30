@@ -1,31 +1,31 @@
-"""Sceglie i semi delle celle di un piano prima del nodo.
+"""Chooses the seeds of a plan's cells before the node.
 
-Il piano e' un modulo con IN_LEN, BLOCK e CELLS: plan (seconda prova
-generale, il default) o campaign_plan (campagna). Per ogni cella di CELLS
-cerca, dal seme iniziale in su, un seme principale e uno di riserva per il
-rilancio (r30 del piano plan ne ha uno solo, usato due volte per disegno).
-Un seme e' accettato se:
-- ogni prompt ha esattamente IN_LEN token;
-- nessuna richiesta condivide il primo blocco di BLOCK token con
-  un'altra richiesta dello stesso adattatore nella cella, nel seme principale
-  della stessa cella (per la riserva) o nelle due celle precedenti del piano.
+The plan is a module with IN_LEN, BLOCK and CELLS: plan (the second dry run,
+the default) or campaign_plan (the campaign). For every cell of CELLS it
+looks, from the starting seed up, for a main seed and a spare for the rerun
+(r30 of plan.py has only one, used twice by design).
+A seed is accepted if:
+- every prompt has exactly IN_LEN tokens;
+- no request shares its first block of BLOCK tokens with
+  another request of the same adapter in the cell, in the main seed
+  of the same cell (for the spare) or in the plan's two cells before.
 
-Il primo blocco basta: gli hash dei blocchi sono concatenati e un blocco
-mancante fa mancare i successivi (vllm/v1/core/single_type_kv_cache_manager.py:
-790-791, vLLM 0.30.0). Due celle bastano: la coda dei blocchi liberi e' LRU
-(v1/core/kv_cache_utils.py:255-257), i blocchi in cache tornano in fondo
-(v1/core/block_pool.py:792-798) e i nuovi si prendono dalla testa (678); ogni
-cella misurata alloca almeno 336 x 512 = 172032 token, contro 89968 di cache
-misurati sul nodo. Che una cella basti a espellere le precedenti e'
-un'inferenza: la seconda cella e' il margine, e il controllo delle hit di
-run_cell.py resta la guardia.
+The first block is enough: block hashes are chained, and a missing block
+makes the following ones miss (vllm/v1/core/single_type_kv_cache_manager.py:
+790-791, vLLM 0.30.0). Two cells are enough: the free-block queue is LRU
+(v1/core/kv_cache_utils.py:255-257), cached blocks go back to its tail
+(v1/core/block_pool.py:792-798) and new ones are taken from its head (678);
+every measured cell allocates at least 336 x 512 = 172032 tokens, against
+89968 of cache measured on the node. That one cell is enough to evict the
+ones before is an inference: the second cell is the margin, and the hit
+check of run_cell.py remains the guard.
 
-L'adattatore della richiesta i e' adattatori[i % len], come nel round-robin
-del benchmark; per le celle sbilanciate e' la lista espansa che run_cell.py
-passa a --lora-modules. I prompt si generano con il codice del benchmark:
-parser (benchmarks/serve.py:1601), get_tokenizer come a 2107-2113,
-get_samples come a 2180, con il tokenizer dello snapshot pinnato. Uso:
-  seedcheck.py <snapshot del modello base> <seeds.json> [seme iniziale] [piano]
+The adapter of request i is adapters[i % len], as in the benchmark's
+round-robin; for the skewed cells it is the expanded list that run_cell.py
+passes to --lora-modules. The prompts are generated with the benchmark's code:
+the parser (benchmarks/serve.py:1601), get_tokenizer as at 2107-2113,
+get_samples as at 2180, with the tokenizer of the pinned snapshot. Usage:
+  seedcheck.py <base model snapshot> <seeds.json> [starting seed] [plan]
 """
 import hashlib
 import importlib
@@ -61,7 +61,7 @@ def parse(adapters, n, seed):
 
 
 def load(snap):
-    """Crea il tokenizer come il benchmark, dallo snapshot pinnato."""
+    """Builds the tokenizer as the benchmark does, from the pinned snapshot."""
     global SNAP, tok
     SNAP = snap
     first = parse(["a1"], 1, 0)
@@ -70,19 +70,19 @@ def load(snap):
 
 
 def keys(adapters, n, seed):
-    """Chiavi (adattatore, primo blocco) delle richieste, o il motivo del rifiuto."""
+    """Keys (adapter, first block) of the requests, or the reason for rejection."""
     reqs = get_samples(parse(adapters, n, seed), tok)
     if len(reqs) != n:
-        return None, f"{len(reqs)} richieste invece di {n}"
+        return None, f"{len(reqs)} requests instead of {n}"
     off = sum(1 for r in reqs if r.prompt_len != plan.IN_LEN)
     if off:
-        return None, f"{off} prompt fuori misura"
+        return None, f"{off} prompts off length"
     out = []
     for i, r in enumerate(reqs):
         ids = tok.encode(r.prompt, add_special_tokens=False)
         out.append((adapters[i % len(adapters)], tuple(ids[:plan.BLOCK])))
     if len(set(out)) != len(out):
-        return None, "primo blocco ripetuto nella cella"
+        return None, "first block repeated within the cell"
     return set(out), None
 
 
@@ -97,7 +97,7 @@ def choose(start):
         while len(picks) < (1 if tag == "r30" else 2):
             k, why = keys(adapters, n, seed)
             if why is None and k & (window | cell_keys):
-                why = "primo blocco gia' usato in finestra"
+                why = "first block already used in the window"
             if why is None:
                 cell_keys |= k
                 picks.append(seed)
@@ -120,6 +120,6 @@ if __name__ == "__main__":
     result = choose(int(sys.argv[3]) if len(sys.argv) > 3 else 2001)
     with open(out, "w") as f:
         json.dump(result, f, indent=1)
-    print("scartati:", len(result["rejected"]), "| scritto", out)
+    print("rejected:", len(result["rejected"]), "| written", out)
     for r in result["rejected"]:
-        print("  scartato", r["cell"], r["seed"], r["reason"])
+        print("  rejected", r["cell"], r["seed"], r["reason"])

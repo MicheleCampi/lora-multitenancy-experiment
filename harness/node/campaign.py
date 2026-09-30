@@ -1,32 +1,32 @@
-"""Campagna - le 56 celle di campaign_plan.py, con regole fissate prima del nodo.
+"""Campaign - the 56 cells of campaign_plan.py, rules fixed before the node.
 
-Si lancia al posto di phase3.py, dopo phase0, phase1 e phase2, in una sola
-sessione del nodo. Le celle, le finestre e l'ordine vengono da campaign_plan.py;
-i semi da campaign-seeds.json, scelti prima del nodo da seedcheck.py sulle
-liste espanse che run_cell.py passa al benchmark. Ordine: riscaldamento su
-tutti e otto gli adattatori (scartato); potenza a riposo (inizio); turni 1 e 2;
-potenza a riposo (meta'); turni 3 e 4; potenza a riposo (fine). Ogni cella
-passa per run_cell.py con --require-gpu. Scrive <LORA_RUN>/results/summary.json
-dopo ogni cella. Prima del riscaldamento scrive <LORA_RUN>/results/gpu.csv con
-nome, driver e memoria della GPU secondo nvidia-smi; se nvidia-smi non risponde,
-la campagna si ferma (con LORA_NO_GPU=1 prosegue senza il file).
+Launched in place of phase3.py, after phase0, phase1 and phase2, in a single
+node session. The cells, windows and order come from campaign_plan.py; the
+seeds from campaign-seeds.json, chosen before the node by seedcheck.py on the
+expanded lists that run_cell.py passes to the benchmark. Order: warm-up on
+all eight adapters (discarded); idle power (start); rounds 1 and 2;
+idle power (middle); rounds 3 and 4; idle power (end). Every cell goes
+through run_cell.py with --require-gpu. Writes <LORA_RUN>/results/summary.json
+after every cell. Before the warm-up it writes <LORA_RUN>/results/gpu.csv: the
+GPU's name, driver and memory per nvidia-smi; if nvidia-smi does not answer,
+the campaign stops (with LORA_NO_GPU=1 it goes on without the file).
 
-Le finestre sono fisse per concorrenza (campaign_plan.WINDOW). Una cella
-scartata si rilancia una volta con il seme di riserva: con finestra doppia se
-il carico non era contenuto, con la stessa finestra altrimenti. Ogni cella ha
-un tempo massimo (2 x finestra + 300 s); oltre, run_cell e i suoi figli vengono
-terminati. I token di una cella sono le richieste completate x lunghezza di
-uscita (--ignore-eos, max_tokens = lunghezza). Il benchmark usa il tokenizer
-dello snapshot pinnato del modello base.
+The windows are fixed per concurrency (campaign_plan.WINDOW). A discarded
+cell is rerun once with the spare seed: with twice the window if the load
+was not contained, with the same window otherwise. Every cell has a time
+limit (2 x window + 300 s); beyond it, run_cell and its children are
+killed. A cell's tokens are the completed requests x the output length
+(--ignore-eos, max_tokens = length). The benchmark uses the tokenizer of
+the base model's pinned snapshot.
 
-La campagna si ferma se il processo del server non esiste piu' o se il tempo
-di fase supera BUDGET_S; le celle non eseguite restano registrate come tali.
-La correzione per il riposo usa la media delle misure di potenza a riposo
-riuscite; le tre misure e la loro escursione sono nel riepilogo.
+The campaign stops if the server's process no longer exists or if the phase
+time exceeds BUDGET_S; the cells not run stay recorded as such. The idle
+correction uses the mean of the idle power measurements that succeeded; the
+three measurements and their spread are in the summary.
 
-Variabili solo per la prova sul simulatore (sul nodo restano ai default):
+Variables for the simulator run only (on the node they keep their defaults):
 LORA_RUN, LORA_URL, LORA_NO_GPU=1, LORA_PYTHON, LORA_BENCH, LORA_TOKENIZER,
-LORA_WINDOW_SCALE (moltiplica le finestre, default 1), LORA_SHORT_WINDOW.
+LORA_WINDOW_SCALE (multiplies the windows, default 1), LORA_SHORT_WINDOW.
 """
 import hashlib
 import json
@@ -54,19 +54,19 @@ T0 = time.time()
 sys.path.insert(0, str(B))
 import campaign_plan as plan  # noqa: E402
 
-# I semi valgono per il piano e per le liste con cui sono stati verificati.
+# The seeds hold for the plan and for the lists they were checked on.
 SEEDS = json.loads((B / "campaign-seeds.json").read_text())
 if SEEDS.get("plan") != "campaign_plan":
-    sys.exit(f"CAMPAGNA FERMA: campaign-seeds.json e' del piano {SEEDS.get('plan')}")
+    sys.exit(f"CAMPAIGN STOPPED: campaign-seeds.json is of plan {SEEDS.get('plan')}")
 if SEEDS.get("plan_sha256") != hashlib.sha256((B / "campaign_plan.py").read_bytes()).hexdigest():
-    sys.exit("CAMPAGNA FERMA: campaign-seeds.json e' di un'altra versione di campaign_plan.py")
+    sys.exit("CAMPAIGN STOPPED: campaign-seeds.json is of another version of campaign_plan.py")
 SEEDS = SEEDS["cells"]
 wrong = [x["tag"] for x in plan.RUNS
          if x["tag"] not in SEEDS
          or SEEDS[x["tag"]]["adapters"] != plan.adapter_list(x["adapters"], x["weights"])
          or SEEDS[x["tag"]]["num_prompts"] != plan.PROMPTS]
 if wrong or "warmup" not in SEEDS:
-    sys.exit(f"CAMPAGNA FERMA: semi mancanti o verificati su altre liste per "
+    sys.exit(f"CAMPAIGN STOPPED: seeds missing or checked on other lists for "
              f"{wrong or ['warmup']}")
 
 session = json.loads((R / "session.json").read_text())
@@ -120,14 +120,14 @@ def run(tag, adapters, n, c, window, seed, weights=None, meta=None):
     except subprocess.TimeoutExpired:
         os.killpg(p.pid, signal.SIGKILL)
         out_s, err_s = p.communicate()
-        print(f"[{tag}] oltre il tempo massimo di {limit} s: run_cell e figli terminati",
+        print(f"[{tag}] over the time limit of {limit} s: run_cell and its children killed",
               flush=True)
     (RES / f"{tag}.stdout.txt").write_text(out_s)
     (RES / f"{tag}.stderr.txt").write_text(err_s)
     try:
         m = json.loads((out / "manifest.json").read_text())
     except OSError:
-        print(f"[{tag}] nessun manifesto; rc {p.returncode}; {err_s[-300:]}", flush=True)
+        print(f"[{tag}] no manifest; rc {p.returncode}; {err_s[-300:]}", flush=True)
         return None
     s = m.get("load_summary") or {}
     tokens = (s.get("completed") or 0) * plan.OUT_LEN
@@ -155,7 +155,7 @@ def run(tag, adapters, n, c, window, seed, weights=None, meta=None):
     print(f"[{tag}] {row['verdict']} contained={row['contained']} active={active} "
           f"thr={row['output_throughput']} J/tok={row['j_per_token']} "
           f"hits={row['prefix_hits']} wall={row['wall_s']}s "
-          f"fase={round(time.time() - T0)}s", flush=True)
+          f"phase={round(time.time() - T0)}s", flush=True)
     return row
 
 
@@ -194,8 +194,8 @@ def idle_power(when):
     res["at_s"] = round(time.time() - T0)
     summary["idle"][when] = res
     dump()
-    print(f"[d8-{when}] potenza a riposo {res['watts']} W (energia {res['energy_mj']} mJ "
-          f"in {IDLE_SECS} s, media {res['power_mean_mw']} mW)", flush=True)
+    print(f"[d8-{when}] idle power {res['watts']} W (energy {res['energy_mj']} mJ "
+          f"in {IDLE_SECS} s, mean {res['power_mean_mw']} mW)", flush=True)
     return res
 
 
@@ -210,21 +210,21 @@ def stats(rows, key):
 
 RES.mkdir(parents=True, exist_ok=True)
 
-# La GPU della campagna, in results/ perche' entri nell'archivio con i risultati:
-# gli stessi tre campi che phase0.sh legge, senza numero di serie ne' UUID.
+# The campaign's GPU, in results/ so it enters the archive with the results:
+# the same three fields phase0.sh reads, with no serial number or UUID.
 try:
     q = subprocess.run(["nvidia-smi", "--query-gpu=name,driver_version,memory.total",
                         "--format=csv"], capture_output=True, text=True)
-    why = f"codice {q.returncode}: {q.stderr.strip()[-200:]}"
+    why = f"code {q.returncode}: {q.stderr.strip()[-200:]}"
 except FileNotFoundError:
-    q, why = None, "nvidia-smi non trovato"
+    q, why = None, "nvidia-smi not found"
 if q is not None and q.returncode == 0:
     (RES / "gpu.csv").write_text(q.stdout)
     print("GPU:", " | ".join(q.stdout.strip().splitlines()), flush=True)
 elif NO_GPU:
-    print(f"GPU: gpu.csv non scritto ({why}; LORA_NO_GPU=1)", flush=True)
+    print(f"GPU: gpu.csv not written ({why}; LORA_NO_GPU=1)", flush=True)
 else:
-    sys.exit(f"CAMPAGNA FERMA: la GPU non sarebbe registrata ({why})")
+    sys.exit(f"CAMPAIGN STOPPED: the GPU would not be recorded ({why})")
 
 run("warmup", plan.ALL8, plan.WARMUP_PROMPTS, 8, SHORT_WINDOW, SEEDS["warmup"]["seed"])
 idle_power("start")
@@ -233,13 +233,13 @@ kept: dict = {}
 stopped = None
 for i, x in enumerate(plan.RUNS):
     if stopped is None and time.time() - T0 > BUDGET_S:
-        stopped = f"budget di fase di {BUDGET_S} s esaurito prima di {x['tag']}"
+        stopped = f"phase budget of {BUDGET_S} s spent before {x['tag']}"
     if stopped is None and not server_alive():
-        stopped = f"il server (pid {PID}) non esiste piu' prima di {x['tag']}"
+        stopped = f"the server (pid {PID}) no longer exists before {x['tag']}"
     if stopped is not None:
         summary["not_run"].append(x["tag"])
         continue
-    print(f"== cella {i + 1}/{len(plan.RUNS)}: {x['tag']}", flush=True)
+    print(f"== cell {i + 1}/{len(plan.RUNS)}: {x['tag']}", flush=True)
     r = cell(x)
     if r is not None and r["verdict"] == "keep":
         kept.setdefault((x["config"], x["c"]), []).append(r)
@@ -247,7 +247,7 @@ for i, x in enumerate(plan.RUNS):
         idle_power("middle")
 if stopped is not None:
     summary["stopped"] = stopped
-    print("CAMPAGNA INTERROTTA:", stopped, flush=True)
+    print("CAMPAIGN INTERRUPTED:", stopped, flush=True)
 if server_alive():
     idle_power("end")
 
@@ -276,15 +276,15 @@ for c in plan.CONCURRENCY:
 summary["margin_vs_n1u"] = margins
 dump()
 
-print("\n== RIEPILOGO CAMPAGNA")
-print("potenza a riposo (W):", {k: v["watts"] for k, v in summary["idle"].items()},
-      "| usata:", P, "| escursione:", summary["idle_spread"])
+print("\n== CAMPAIGN SUMMARY")
+print("idle power (W):", {k: v["watts"] for k, v in summary["idle"].items()},
+      "| used:", P, "| spread:", summary["idle_spread"])
 for k, st in by_cell.items():
-    print(k, " | ".join(f"{m}: n={st[m]['n']} media={st[m]['mean']} banda={st[m]['band']}"
+    print(k, " | ".join(f"{m}: n={st[m]['n']} mean={st[m]['mean']} band={st[m]['band']}"
                         for m in METRICS))
 for k, mg in margins.items():
-    print("margine", k, "vs n1u:", mg)
-print("celle non eseguite:", summary["not_run"] or "nessuna")
-print("CAMPAGNA", "INTERROTTA" if stopped else "COMPLETATA", "in", summary["elapsed_s"], "s",
+    print("margin", k, "vs n1u:", mg)
+print("cells not run:", summary["not_run"] or "none")
+print("CAMPAIGN", "INTERRUPTED" if stopped else "COMPLETED", "in", summary["elapsed_s"], "s",
       flush=True)
 sys.exit(1 if stopped else 0)

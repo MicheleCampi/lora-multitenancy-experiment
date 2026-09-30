@@ -1,9 +1,9 @@
-"""Piano delle celle della seconda prova generale (deciso il 26/9/2026).
+"""Cell plan of the second dry run (decided on 2026-09-26).
 
-Unica fonte per seedcheck.py, che sceglie i semi prima del nodo, e per
-phase3.py, che esegue le celle. num_prompts e' un multiplo di 168
-(PROTOCOL.md:434). D2 sale fino a 160: 160 richieste da 512 token occupano
-81920 token della cache KV misurata sul nodo (89968).
+The single source for seedcheck.py, which chooses the seeds before the node,
+and for phase3.py, which runs the cells. num_prompts is a multiple of 168
+(PROTOCOL.md:434). D2 goes up to 160: 160 requests of 512 tokens take 81920
+tokens of the KV cache measured on the node (89968).
 """
 ALL8 = [f"a{i}" for i in range(1, 9)]
 IN_LEN = 256
@@ -16,7 +16,7 @@ D3_REPS = 4
 WARMUP_PROMPTS = 24
 R30_PROMPTS = 24
 
-# (tag, adattatori, prompt). r30 ha un solo seme, usato da r30-a e da r30-b.
+# (tag, adapters, prompts). r30 has a single seed, used by r30-a and r30-b.
 CELLS = (
     [("warmup", ALL8, WARMUP_PROMPTS)]
     + [(f"d2-c{c}", ALL8, D2_PROMPTS) for c in D2_LEVELS]

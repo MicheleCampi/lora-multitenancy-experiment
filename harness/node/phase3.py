@@ -1,26 +1,26 @@
-"""Fase 3 - misure della prova generale, con regole fissate prima del nodo.
+"""Phase 3 - the dry run's measurements, with rules fixed before the node.
 
-Le celle, i livelli e il numero di prompt vengono da plan.py; i semi da
-seeds.json, scelti prima del nodo da seedcheck.py. Ordine: riscaldamento su
-tutti e otto gli adattatori (scartato); D8 potenza a riposo; D2 ai livelli di
-plan.D2_LEVELS su uniforme N=8; c* = concorrenza piu' bassa con throughput
->= 90% del massimo; D3/D7 plan.D3_REPS ripetizioni alternate di N=1 e N=8 a
-c*; R30 con due celle allo stesso seme. Ogni cella passa per run_cell.py con
---require-gpu. Scrive <LORA_RUN>/results/summary.json.
+The cells, the levels and the number of prompts come from plan.py; the seeds
+from seeds.json, chosen before the node by seedcheck.py. Order: warm-up on
+all eight adapters (discarded); D8 idle power; D2 at the levels of
+plan.D2_LEVELS on uniform N=8; c* = the lowest concurrency with throughput
+>= 90% of the highest; D3/D7 plan.D3_REPS alternating repetitions of N=1 and
+N=8 at c*; R30 with two cells on the same seed. Every cell goes through
+run_cell.py with --require-gpu. Writes <LORA_RUN>/results/summary.json.
 
-Variabili solo per la prova sul simulatore (sul nodo restano ai default):
+Variables for the simulator run only (on the node they keep their defaults):
 LORA_RUN, LORA_URL, LORA_NO_GPU=1, LORA_PYTHON, LORA_BENCH,
 LORA_FIRST_WINDOW, LORA_SHORT_WINDOW, LORA_TOKENIZER.
-Le finestre successive alla prima si ricavano dalla cella precedente:
-preambolo misurato + 10 s + 2.2 x durata attiva x rapporto di concorrenza;
-la finestra di D3 scala la cella di D2 a c* sul rapporto fra i prompt.
+The windows after the first are derived from the cell before:
+measured preamble + 10 s + 2.2 x active duration x concurrency ratio;
+D3's window scales the D2 cell at c* by the ratio of the prompts.
 
-Una cella scartata si rilancia una volta con il seme di riserva: con finestra
-doppia se il carico non era contenuto, con la stessa finestra altrimenti.
-Ogni cella ha un tempo massimo (2 x finestra + 300 s); oltre, run_cell e i
-suoi figli vengono terminati. I token di una cella sono le richieste
-completate x lunghezza di uscita (--ignore-eos, max_tokens = lunghezza).
-Il benchmark usa il tokenizer dello snapshot pinnato del modello base.
+A discarded cell is rerun once with the spare seed: with twice the window
+if the load was not contained, with the same window otherwise.
+Every cell has a time limit (2 x window + 300 s); beyond it, run_cell and
+its children are killed. A cell's tokens are the completed requests x the
+output length (--ignore-eos, max_tokens = length).
+The benchmark uses the tokenizer of the base model's pinned snapshot.
 """
 import json
 import math
@@ -70,7 +70,7 @@ def dump() -> None:
 
 def run(tag, adapters, n, c, window, seed, weights=None):
     if time.time() - T0 > BUDGET_S:
-        print(f"[{tag}] budget di fase esaurito: cella non eseguita", flush=True)
+        print(f"[{tag}] phase budget spent: cell not run", flush=True)
         return None
     out = RES / tag
     cmd = [PY, str(B / "run_cell.py"), "--server-pid", str(PID),
@@ -93,14 +93,14 @@ def run(tag, adapters, n, c, window, seed, weights=None):
     except subprocess.TimeoutExpired:
         os.killpg(p.pid, signal.SIGKILL)
         out_s, err_s = p.communicate()
-        print(f"[{tag}] oltre il tempo massimo di {limit} s: run_cell e figli terminati",
+        print(f"[{tag}] over the time limit of {limit} s: run_cell and its children killed",
               flush=True)
     (RES / f"{tag}.stdout.txt").write_text(out_s)
     (RES / f"{tag}.stderr.txt").write_text(err_s)
     try:
         m = json.loads((out / "manifest.json").read_text())
     except OSError:
-        print(f"[{tag}] nessun manifesto; rc {p.returncode}; {err_s[-300:]}", flush=True)
+        print(f"[{tag}] no manifest; rc {p.returncode}; {err_s[-300:]}", flush=True)
         return None
     s = m.get("load_summary") or {}
     tokens = (s.get("completed") or 0) * OUT_LEN
@@ -152,8 +152,8 @@ def idle_power(secs=60):
     g = (json.loads(p.stdout).get("gpu") or {}) if p.returncode == 0 and p.stdout.strip() else {}
     e = g.get("energy_millijoules")
     w = e / 1000 / secs if e is not None else None
-    print(f"[d8] potenza a riposo {w} W (energia {e} mJ in {secs} s, "
-          f"media {g.get('power_mean_milliwatts')} mW)", flush=True)
+    print(f"[d8] idle power {w} W (energy {e} mJ in {secs} s, "
+          f"mean {g.get('power_mean_milliwatts')} mW)", flush=True)
     return {"secs": secs, "energy_mj": e, "watts": w,
             "power_mean_mw": g.get("power_mean_milliwatts")}
 
@@ -185,7 +185,7 @@ for c in plan.D2_LEVELS:
 summary["d2"] = [r["tag"] for r in sweep]
 if not sweep:
     dump()
-    print("FASE3 FERMA: nessuna cella di concorrenza valida", flush=True)
+    print("PHASE3 STOPPED: no valid concurrency cell", flush=True)
     sys.exit(1)
 best = max(r["output_throughput"] for r in sweep)
 c_star = min(r["c"] for r in sweep if r["output_throughput"] >= 0.9 * best)
@@ -194,7 +194,7 @@ win = math.ceil((ref["preamble_s"] or 15) + 10
                 + 2.2 * ref["active_s"] * plan.D3_PROMPTS / plan.D2_PROMPTS)
 summary["c_star"] = c_star
 summary["d3_window"] = win
-print(f"[d2] throughput massimo {best}; c* = {c_star}; finestra D3 {win} s", flush=True)
+print(f"[d2] highest throughput {best}; c* = {c_star}; D3 window {win} s", flush=True)
 
 reps = {"n1": [], "n8": []}
 for i in range(1, plan.D3_REPS + 1):
@@ -223,13 +223,13 @@ summary["r30"] = {"first_hits": a and a["prefix_hits"], "second_hits": b and b["
                   "second_verdict": b and b["verdict"]}
 dump()
 
-print("\n== RIEPILOGO FASE 3")
-print("D8 potenza a riposo (W):", P)
+print("\n== PHASE 3 SUMMARY")
+print("D8 idle power (W):", P)
 print("c*:", c_star)
 for k in ("n1", "n8"):
     for m in ("j_per_token", "j_per_token_idle_corrected", "s_per_token"):
         st = d3[k][m]
-        print(f"D3 {k} {m}: n={st['n']} media={st['mean']} banda={st['band']}")
-print("D7 margine N=8 vs N=1:", summary["d7_margin"])
+        print(f"D3 {k} {m}: n={st['n']} mean={st['mean']} band={st['band']}")
+print("D7 margin N=8 vs N=1:", summary["d7_margin"])
 print("R30:", summary["r30"])
-print("FASE3 COMPLETATA in", summary["elapsed_s"], "s", flush=True)
+print("PHASE3 COMPLETED in", summary["elapsed_s"], "s", flush=True)

@@ -1,11 +1,11 @@
-"""Rigenera offline i prompt random delle 13 celle e cerca prefissi comuni.
+"""Regenerates the 13 cells' random prompts offline and finds shared prefixes.
 
-Usa il codice di vllm bench serve 0.30.0: parser (serve.py:60, 1601),
-alias degli argomenti (2135-2146), get_tokenizer (2107-2113), get_samples (2180).
-Fedelta': prompt_len rigenerati == input_lens di load.json, cella per cella.
-Adattatore della richiesta i: lora_modules[i % len] (round-robin).
-Per ogni richiesta: blocchi pieni da 16 token in comune con una richiesta
-precedente (stessa cella o celle prima) servita dallo stesso adattatore.
+Uses the code of vllm bench serve 0.30.0: parser (serve.py:60, 1601),
+argument aliases (2135-2146), get_tokenizer (2107-2113), get_samples (2180).
+Fidelity: the regenerated prompt_len == input_lens of load.json, cell by cell.
+Adapter of request i: lora_modules[i % len] (round-robin).
+For every request: full blocks of 16 tokens shared with an earlier request
+(same cell or cells before) served by the same adapter. Prints in Italian.
 """
 import json
 import os
@@ -24,7 +24,7 @@ ORDER = ["warmup", "d2-c64", "d2-c32", "d2-c16", "d2-c8",
          "r30-a", "r30-b"]
 BLOCK = 16
 
-seen = {}  # (adapter, prefisso di k blocchi) -> (cella, indice)
+seen = {}  # (adapter, prefix of k blocks) -> (cell, index)
 for cell in ORDER:
     man = json.load(open(f"{RES}/{cell}/manifest.json"))
     argv = man["commands"]["load"][3:]

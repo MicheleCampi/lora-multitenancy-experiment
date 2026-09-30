@@ -1,6 +1,6 @@
 {
  "plan": "campaign_plan",
- "plan_sha256": "d75b73322df46f9ccc342d96b4de840c9879c4fc2957293750732d3cf1485d28",
+ "plan_sha256": "a5e956ae8141a02890ef1f0d072df2f467bd21ed20007a74ece9f2cafb0d290d",
  "snapshot": "/root/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
  "start": 3001,
  "block": 16,
@@ -891,2262 +891,2262 @@
   {
    "cell": "r1-n1u-c128",
    "seed": 3004,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c128",
    "seed": 3005,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c128",
    "seed": 3006,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c128",
    "seed": 3007,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2u-c128",
    "seed": 3009,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2u-c128",
    "seed": 3010,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2u-c128",
    "seed": 3011,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2u-c128",
    "seed": 3012,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c128",
    "seed": 3015,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c128",
    "seed": 3016,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c128",
    "seed": 3017,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n2s-c128",
    "seed": 3019,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c128",
    "seed": 3020,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c128",
    "seed": 3021,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c128",
    "seed": 3022,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n4u-c128",
    "seed": 3024,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4u-c128",
    "seed": 3025,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4u-c128",
    "seed": 3026,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3029,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3031,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3032,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3033,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3034,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3035,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3036,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3037,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3038,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3039,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3040,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n4s-c128",
    "seed": 3041,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3045,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3046,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3047,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3048,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3049,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3050,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3051,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3052,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3053,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3054,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3055,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3056,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3057,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3058,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3060,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3061,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3062,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3063,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3064,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3065,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c128",
    "seed": 3066,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3068,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3069,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3070,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3071,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3072,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3073,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3074,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3075,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3076,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3077,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3078,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3080,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3081,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3082,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3083,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3084,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3085,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3086,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n1u-c64",
    "seed": 3087,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2u-c64",
    "seed": 3089,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3092,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3093,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3094,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3095,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3097,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3098,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3099,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3100,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3101,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3102,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3103,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3104,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3105,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3106,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3107,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3108,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n2s-c64",
    "seed": 3109,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4u-c64",
    "seed": 3112,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4u-c64",
    "seed": 3113,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n4u-c64",
    "seed": 3114,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n4u-c64",
    "seed": 3115,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8u-c64",
    "seed": 3119,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8u-c64",
    "seed": 3120,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8u-c64",
    "seed": 3121,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n8u-c64",
    "seed": 3122,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n8s-c64",
    "seed": 3125,
-   "reason": "1 prompt fuori misura"
+   "reason": "1 prompts off length"
   },
   {
    "cell": "r1-n8s-c64",
    "seed": 3126,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r1-n8s-c64",
    "seed": 3128,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r1-n8s-c64",
    "seed": 3129,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4u-c128",
    "seed": 3132,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4u-c128",
    "seed": 3133,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4u-c128",
    "seed": 3134,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c128",
    "seed": 3136,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n4s-c128",
    "seed": 3137,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n4s-c128",
    "seed": 3138,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n8u-c128",
    "seed": 3142,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3144,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3145,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3146,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3147,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3148,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3149,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3150,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3152,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3153,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3154,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3155,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3156,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3157,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3158,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3159,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3160,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3161,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n8s-c128",
    "seed": 3162,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n1u-c64",
    "seed": 3164,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c64",
    "seed": 3165,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c64",
    "seed": 3166,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c64",
    "seed": 3167,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n2u-c64",
    "seed": 3170,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c64",
    "seed": 3171,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c64",
    "seed": 3172,
-   "reason": "1 prompt fuori misura"
+   "reason": "1 prompts off length"
   },
   {
    "cell": "r2-n2u-c64",
    "seed": 3174,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c64",
    "seed": 3175,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c64",
    "seed": 3176,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c64",
    "seed": 3177,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c64",
    "seed": 3179,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c64",
    "seed": 3180,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n2s-c64",
    "seed": 3182,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c64",
    "seed": 3183,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c64",
    "seed": 3184,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c64",
    "seed": 3185,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c64",
    "seed": 3186,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c64",
    "seed": 3187,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c64",
    "seed": 3188,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3192,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3193,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3194,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3195,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3196,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3197,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3198,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3199,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3200,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3201,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3203,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3204,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3205,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3206,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3207,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3208,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3209,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3210,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3211,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3212,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3213,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3214,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3215,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n4s-c64",
    "seed": 3216,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n8s-c64",
    "seed": 3221,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3223,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3224,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3225,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3227,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3228,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3229,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3230,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3231,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3232,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3233,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3234,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3235,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3236,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3237,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n1u-c128",
    "seed": 3238,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c128",
    "seed": 3240,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c128",
    "seed": 3241,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c128",
    "seed": 3242,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c128",
    "seed": 3243,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c128",
    "seed": 3244,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c128",
    "seed": 3245,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2u-c128",
    "seed": 3247,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n2u-c128",
    "seed": 3248,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n2s-c128",
    "seed": 3250,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r2-n2s-c128",
    "seed": 3251,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c128",
    "seed": 3252,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c128",
    "seed": 3254,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c128",
    "seed": 3255,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r2-n2s-c128",
    "seed": 3256,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8s-c128",
    "seed": 3258,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8s-c128",
    "seed": 3259,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8s-c128",
    "seed": 3260,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8s-c128",
    "seed": 3262,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8s-c128",
    "seed": 3263,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8s-c128",
    "seed": 3264,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3266,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3267,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3268,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3269,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3270,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3271,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3272,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3273,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3274,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3276,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3277,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3278,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3279,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3280,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3281,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3282,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3283,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3284,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3285,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3286,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3287,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3288,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3289,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3290,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3291,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3292,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3293,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3294,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3295,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3296,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3297,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3298,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3299,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3300,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3301,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3302,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3303,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3304,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3305,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3306,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3307,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3308,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3309,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3310,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3311,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3312,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3313,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3314,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3315,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3316,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3317,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3318,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3319,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3320,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3321,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3322,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3323,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3324,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3325,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3326,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3327,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3328,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3329,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3330,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3331,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3332,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3333,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3334,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3335,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3336,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3337,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3338,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3339,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3340,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3341,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3342,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3343,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3344,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3345,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3346,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3347,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3348,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3349,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c64",
    "seed": 3350,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2u-c64",
    "seed": 3352,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2u-c64",
    "seed": 3353,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2u-c64",
    "seed": 3354,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2u-c64",
    "seed": 3355,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c64",
    "seed": 3358,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c64",
    "seed": 3359,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c64",
    "seed": 3361,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c64",
    "seed": 3362,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4u-c64",
    "seed": 3365,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4u-c64",
    "seed": 3366,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4u-c64",
    "seed": 3367,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3369,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3370,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3371,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3372,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3373,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3374,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3376,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3377,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3378,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3379,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3380,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c64",
    "seed": 3381,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8u-c64",
    "seed": 3384,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8u-c64",
    "seed": 3385,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8s-c64",
    "seed": 3387,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n8s-c64",
    "seed": 3388,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3391,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3392,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3393,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3394,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3396,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3397,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3398,
-   "reason": "1 prompt fuori misura"
+   "reason": "1 prompts off length"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3399,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3400,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n1u-c128",
    "seed": 3401,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2u-c128",
    "seed": 3403,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2u-c128",
    "seed": 3404,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2u-c128",
    "seed": 3405,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2u-c128",
    "seed": 3406,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2u-c128",
    "seed": 3407,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2u-c128",
    "seed": 3408,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2u-c128",
    "seed": 3409,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2u-c128",
    "seed": 3410,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2u-c128",
    "seed": 3411,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3414,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3415,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3416,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3417,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3418,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3419,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3420,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3421,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3422,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3424,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3425,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3426,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3427,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3428,
-   "reason": "1 prompt fuori misura"
+   "reason": "1 prompts off length"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3429,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3430,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3431,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3432,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3433,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n2s-c128",
    "seed": 3434,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4u-c128",
    "seed": 3437,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4u-c128",
    "seed": 3438,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4u-c128",
    "seed": 3439,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c128",
    "seed": 3441,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c128",
    "seed": 3442,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c128",
    "seed": 3443,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c128",
    "seed": 3444,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c128",
    "seed": 3446,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c128",
    "seed": 3447,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c128",
    "seed": 3448,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c128",
    "seed": 3449,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r3-n4s-c128",
    "seed": 3450,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2s-c64",
    "seed": 3455,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n2s-c64",
    "seed": 3456,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2s-c64",
    "seed": 3457,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2s-c64",
    "seed": 3458,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4s-c64",
    "seed": 3463,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n4s-c64",
    "seed": 3464,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4s-c64",
    "seed": 3465,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n4s-c64",
    "seed": 3466,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n4s-c64",
    "seed": 3467,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4s-c64",
    "seed": 3468,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4s-c64",
    "seed": 3469,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4s-c64",
    "seed": 3470,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n8u-c64",
    "seed": 3472,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3475,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3476,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3477,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3479,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3480,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3481,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3482,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3483,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3484,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n8s-c64",
    "seed": 3485,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c128",
    "seed": 3487,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c128",
    "seed": 3488,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c128",
    "seed": 3490,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c128",
    "seed": 3491,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n2u-c128",
    "seed": 3493,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2u-c128",
    "seed": 3494,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n2u-c128",
    "seed": 3495,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2u-c128",
    "seed": 3496,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2u-c128",
    "seed": 3497,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2u-c128",
    "seed": 3498,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2u-c128",
    "seed": 3500,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n2s-c128",
    "seed": 3502,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2s-c128",
    "seed": 3503,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2s-c128",
    "seed": 3504,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2s-c128",
    "seed": 3506,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n2s-c128",
    "seed": 3507,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n2s-c128",
    "seed": 3508,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2s-c128",
    "seed": 3509,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n2s-c128",
    "seed": 3510,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4u-c128",
    "seed": 3513,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4u-c128",
    "seed": 3514,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4u-c128",
    "seed": 3515,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4u-c128",
    "seed": 3516,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n4s-c128",
    "seed": 3518,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4s-c128",
    "seed": 3519,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4s-c128",
    "seed": 3521,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n4s-c128",
    "seed": 3522,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n4s-c128",
    "seed": 3523,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n8u-c128",
    "seed": 3525,
-   "reason": "1 prompt fuori misura"
+   "reason": "1 prompts off length"
   },
   {
    "cell": "r4-n8u-c128",
    "seed": 3526,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n8u-c128",
    "seed": 3527,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3533,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3534,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3535,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3536,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3537,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3538,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3539,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3540,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3541,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3542,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3543,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3544,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3545,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3546,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3547,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3548,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3549,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3550,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3551,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3552,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3553,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3554,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3555,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3556,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3557,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3558,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3559,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n1u-c64",
    "seed": 3560,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2u-c64",
    "seed": 3562,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   },
   {
    "cell": "r4-n2u-c64",
    "seed": 3563,
-   "reason": "primo blocco ripetuto nella cella"
+   "reason": "first block repeated within the cell"
   },
   {
    "cell": "r4-n2u-c64",
    "seed": 3565,
-   "reason": "primo blocco gia' usato in finestra"
+   "reason": "first block already used in the window"
   }
  ]
 }
