@@ -7,7 +7,9 @@ liste espanse che run_cell.py passa al benchmark. Ordine: riscaldamento su
 tutti e otto gli adattatori (scartato); potenza a riposo (inizio); turni 1 e 2;
 potenza a riposo (meta'); turni 3 e 4; potenza a riposo (fine). Ogni cella
 passa per run_cell.py con --require-gpu. Scrive <LORA_RUN>/results/summary.json
-dopo ogni cella.
+dopo ogni cella. Prima del riscaldamento scrive <LORA_RUN>/results/gpu.csv con
+nome, driver e memoria della GPU secondo nvidia-smi; se nvidia-smi non risponde,
+la campagna si ferma (con LORA_NO_GPU=1 prosegue senza il file).
 
 Le finestre sono fisse per concorrenza (campaign_plan.WINDOW). Una cella
 scartata si rilancia una volta con il seme di riserva: con finestra doppia se
@@ -207,6 +209,22 @@ def stats(rows, key):
 
 
 RES.mkdir(parents=True, exist_ok=True)
+
+# La GPU della campagna, in results/ perche' entri nell'archivio con i risultati:
+# gli stessi tre campi che phase0.sh legge, senza numero di serie ne' UUID.
+try:
+    q = subprocess.run(["nvidia-smi", "--query-gpu=name,driver_version,memory.total",
+                        "--format=csv"], capture_output=True, text=True)
+    why = f"codice {q.returncode}: {q.stderr.strip()[-200:]}"
+except FileNotFoundError:
+    q, why = None, "nvidia-smi non trovato"
+if q is not None and q.returncode == 0:
+    (RES / "gpu.csv").write_text(q.stdout)
+    print("GPU:", " | ".join(q.stdout.strip().splitlines()), flush=True)
+elif NO_GPU:
+    print(f"GPU: gpu.csv non scritto ({why}; LORA_NO_GPU=1)", flush=True)
+else:
+    sys.exit(f"CAMPAGNA FERMA: la GPU non sarebbe registrata ({why})")
 
 run("warmup", plan.ALL8, plan.WARMUP_PROMPTS, 8, SHORT_WINDOW, SEEDS["warmup"]["seed"])
 idle_power("start")
