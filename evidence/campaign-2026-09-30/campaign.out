@@ -1,0 +1,148 @@
+GPU: name, driver_version, memory.total [MiB] | NVIDIA A10, 580.105.08, 23028 MiB
+[warmup] keep contained=True active=37.30250452600012 thr=164.7074393012294 J/tok=1.6538457031249998 hits=0.0 wall=120.2s phase=120s
+[d8-start] idle power 57.08225 W (energy 3424935 mJ in 60 s, mean 57575 mW)
+== cell 1/56: r1-n1u-c128
+[r1-n1u-c128] keep contained=True active=62.825786481999785 thr=1369.1193507723847 J/tok=0.1764130394345238 hits=0.0 wall=165.2s phase=345s
+== cell 2/56: r1-n2u-c128
+[r1-n2u-c128] keep contained=True active=60.22417527400012 thr=1428.2636434397914 J/tok=0.17735785202752977 hits=0.0 wall=165.2s phase=511s
+== cell 3/56: r1-n2s-c128
+[r1-n2s-c128] keep contained=True active=60.56687213499981 thr=1420.1823037563447 J/tok=0.1777132859002976 hits=0.0 wall=165.2s phase=676s
+== cell 4/56: r1-n4u-c128
+[r1-n4u-c128] keep contained=True active=61.52655516699997 thr=1398.0304888926246 J/tok=0.17883956473214285 hits=0.0 wall=165.2s phase=841s
+== cell 5/56: r1-n4s-c128
+[r1-n4s-c128] keep contained=True active=61.938935567000044 thr=1388.7226057825214 J/tok=0.17925256928943453 hits=0.0 wall=165.2s phase=1006s
+== cell 6/56: r1-n8u-c128
+[r1-n8u-c128] keep contained=True active=64.41714007300016 thr=1335.2967844043235 J/tok=0.18210384114583333 hits=0.0 wall=165.2s phase=1171s
+== cell 7/56: r1-n8s-c128
+[r1-n8s-c128] keep contained=True active=64.76761717599993 thr=1328.071090932056 J/tok=0.18245289248511906 hits=0.0 wall=165.2s phase=1337s
+== cell 8/56: r1-n1u-c64
+[r1-n1u-c64] keep contained=True active=87.12027847799982 thr=987.3246677204013 J/tok=0.2413579334077381 hits=0.0 wall=216.2s phase=1553s
+== cell 9/56: r1-n2u-c64
+[r1-n2u-c64] keep contained=True active=87.20364517300004 thr=986.3807852224077 J/tok=0.24150287155877978 hits=0.0 wall=216.2s phase=1769s
+== cell 10/56: r1-n2s-c64
+[r1-n2s-c64] keep contained=True active=88.40488823999931 thr=972.9778716136825 J/tok=0.2427745419456845 hits=0.0 wall=216.2s phase=1985s
+== cell 11/56: r1-n4u-c64
+[r1-n4u-c64] keep contained=True active=87.97550756599958 thr=977.7266693854588 J/tok=0.24232398623511905 hits=0.0 wall=216.2s phase=2201s
+== cell 12/56: r1-n4s-c64
+[r1-n4s-c64] keep contained=True active=89.32302945599986 thr=962.9767432190722 J/tok=0.2438538062686012 hits=0.0 wall=216.2s phase=2418s
+== cell 13/56: r1-n8u-c64
+[r1-n8u-c64] keep contained=True active=92.24556125700019 thr=932.4676312647244 J/tok=0.24712668573288687 hits=0.0 wall=216.2s phase=2634s
+== cell 14/56: r1-n8s-c64
+[r1-n8s-c64] keep contained=True active=92.39299263000066 thr=930.9796939304896 J/tok=0.24720421781994048 hits=0.0 wall=216.2s phase=2850s
+== cell 15/56: r2-n4u-c128
+[r2-n4u-c128] keep contained=True active=61.55316834699988 thr=1397.4260352463634 J/tok=0.17889570545014882 hits=0.0 wall=165.2s phase=3015s
+== cell 16/56: r2-n4s-c128
+[r2-n4s-c128] keep contained=True active=61.96142687199972 thr=1388.2185150076089 J/tok=0.1792509300595238 hits=0.0 wall=165.2s phase=3180s
+== cell 17/56: r2-n8u-c128
+[r2-n8u-c128] keep contained=True active=64.4288392010003 thr=1335.054318325582 J/tok=0.18211192103794643 hits=0.0 wall=165.2s phase=3346s
+== cell 18/56: r2-n8s-c128
+[r2-n8s-c128] keep contained=True active=64.77115678500013 thr=1327.9985146092033 J/tok=0.18242803664434523 hits=0.0 wall=165.2s phase=3511s
+== cell 19/56: r2-n1u-c64
+[r2-n1u-c64] keep contained=True active=86.86327833900032 thr=990.2458397241968 J/tok=0.24124228050595237 hits=0.0 wall=216.2s phase=3727s
+== cell 20/56: r2-n2u-c64
+[r2-n2u-c64] keep contained=True active=87.4863574660003 thr=983.1932942622315 J/tok=0.24183544921875 hits=0.0 wall=216.2s phase=3943s
+== cell 21/56: r2-n2s-c64
+[r2-n2s-c64] keep contained=True active=86.85128394200001 thr=990.3825953504864 J/tok=0.2410599888392857 hits=0.0 wall=216.2s phase=4159s
+== cell 22/56: r2-n4u-c64
+[r2-n4u-c64] keep contained=True active=88.44650425100008 thr=972.520064285383 J/tok=0.2429381394159226 hits=0.0 wall=216.2s phase=4376s
+== cell 23/56: r2-n4s-c64
+[r2-n4s-c64] keep contained=True active=87.45184987599987 thr=983.5812521057496 J/tok=0.24191265578497023 hits=0.0 wall=216.2s phase=4592s
+== cell 24/56: r2-n8u-c64
+[r2-n8u-c64] keep contained=True active=92.59635768099997 thr=928.9350267569952 J/tok=0.2474293154761905 hits=0.0 wall=216.2s phase=4808s
+== cell 25/56: r2-n8s-c64
+[r2-n8s-c64] keep contained=True active=92.3234896670001 thr=931.6805539982244 J/tok=0.2471053059895833 hits=0.0 wall=216.2s phase=5024s
+== cell 26/56: r2-n1u-c128
+[r2-n1u-c128] keep contained=True active=60.03880948299957 thr=1432.673311491229 J/tok=0.1772860863095238 hits=0.0 wall=165.2s phase=5189s
+== cell 27/56: r2-n2u-c128
+[r2-n2u-c128] keep contained=True active=60.21187737599939 thr=1428.555357323673 J/tok=0.1773817196800595 hits=0.0 wall=165.2s phase=5355s
+== cell 28/56: r2-n2s-c128
+[r2-n2s-c128] keep contained=True active=60.54128578200016 thr=1420.782510462866 J/tok=0.17784764462425595 hits=0.0 wall=165.2s phase=5520s
+[d8-middle] idle power 57.611200000000004 W (energy 3456672 mJ in 60 s, mean 58110 mW)
+== cell 29/56: r3-n8s-c128
+[r3-n8s-c128] keep contained=True active=64.72820944500018 thr=1328.879645173688 J/tok=0.18198421223958333 hits=0.0 wall=165.2s phase=5745s
+== cell 30/56: r3-n1u-c64
+[r3-n1u-c64] keep contained=True active=87.29875817100037 thr=985.306112047004 J/tok=0.24172808547247024 hits=0.0 wall=216.2s phase=5961s
+== cell 31/56: r3-n2u-c64
+[r3-n2u-c64] keep contained=True active=88.04320257799918 thr=976.974910968246 J/tok=0.2424303036644345 hits=0.0 wall=216.2s phase=6178s
+== cell 32/56: r3-n2s-c64
+[r3-n2s-c64] keep contained=True active=88.16857517599965 thr=975.5856871713903 J/tok=0.24273525855654765 hits=0.0 wall=216.2s phase=6394s
+== cell 33/56: r3-n4u-c64
+[r3-n4u-c64] keep contained=True active=87.6835613330004 thr=980.982052876851 J/tok=0.24235464332217263 hits=0.0 wall=216.2s phase=6610s
+== cell 34/56: r3-n4s-c64
+[r3-n4s-c64] keep contained=True active=88.32738396400055 thr=973.8316266114867 J/tok=0.2428827194940476 hits=0.0 wall=216.2s phase=6826s
+== cell 35/56: r3-n8u-c64
+[r3-n8u-c64] keep contained=True active=92.32792316499945 thr=931.6358155948185 J/tok=0.2473853585379464 hits=0.0 wall=216.2s phase=7042s
+== cell 36/56: r3-n8s-c64
+[r3-n8s-c64] keep contained=True active=92.64768353499858 thr=928.420406404512 J/tok=0.24774088541666667 hits=0.0 wall=216.2s phase=7259s
+== cell 37/56: r3-n1u-c128
+[r3-n1u-c128] keep contained=True active=60.05272875999981 thr=1432.341240374974 J/tok=0.1773352515811012 hits=0.0 wall=165.2s phase=7424s
+== cell 38/56: r3-n2u-c128
+[r3-n2u-c128] keep contained=True active=60.22643031200096 thr=1428.2101654439266 J/tok=0.1776265113467262 hits=0.0 wall=165.2s phase=7589s
+== cell 39/56: r3-n2s-c128
+[r3-n2s-c128] keep contained=True active=60.595884336999006 thr=1419.502346423878 J/tok=0.1779353259858631 hits=0.0 wall=165.2s phase=7754s
+== cell 40/56: r3-n4u-c128
+[r3-n4u-c128] keep contained=True active=61.564663152999856 thr=1397.1651202936648 J/tok=0.17907287016369047 hits=0.0 wall=165.2s phase=7919s
+== cell 41/56: r3-n4s-c128
+[r3-n4s-c128] keep contained=True active=61.96730437699989 thr=1388.0868445832566 J/tok=0.1794240025111607 hits=0.0 wall=165.2s phase=8085s
+== cell 42/56: r3-n8u-c128
+[r3-n8u-c128] keep contained=True active=64.52763150399915 thr=1333.0103398366496 J/tok=0.1823739769345238 hits=0.0 wall=165.2s phase=8250s
+== cell 43/56: r4-n2s-c64
+[r4-n2s-c64] keep contained=True active=87.52659576800033 thr=982.7412941775509 J/tok=0.24179840959821428 hits=0.0 wall=216.2s phase=8466s
+== cell 44/56: r4-n4u-c64
+[r4-n4u-c64] keep contained=True active=87.81767415300055 thr=979.483923135318 J/tok=0.2417490234375 hits=0.0 wall=216.2s phase=8682s
+== cell 45/56: r4-n4s-c64
+[r4-n4s-c64] keep contained=True active=88.44836651999867 thr=972.4995880003199 J/tok=0.2425431431361607 hits=0.0 wall=216.2s phase=8898s
+== cell 46/56: r4-n8u-c64
+[r4-n8u-c64] keep contained=True active=92.19427692600038 thr=932.9863291735628 J/tok=0.24666710844494047 hits=0.0 wall=216.2s phase=9115s
+== cell 47/56: r4-n8s-c64
+[r4-n8s-c64] keep contained=True active=92.55212242900052 thr=929.3790109025908 J/tok=0.24702293759300595 hits=0.0 wall=216.2s phase=9331s
+== cell 48/56: r4-n1u-c128
+[r4-n1u-c128] keep contained=True active=59.919500980999146 thr=1435.5259738774564 J/tok=0.17678463309151787 hits=0.0 wall=165.2s phase=9496s
+== cell 49/56: r4-n2u-c128
+[r4-n2u-c128] keep contained=True active=60.1275820389983 thr=1430.5581079946082 J/tok=0.17704051571800594 hits=0.0 wall=165.2s phase=9661s
+== cell 50/56: r4-n2s-c128
+[r4-n2s-c128] keep contained=True active=60.40140264799993 thr=1424.072889520029 J/tok=0.17727521623883927 hits=0.0 wall=165.2s phase=9826s
+== cell 51/56: r4-n4u-c128
+[r4-n4u-c128] keep contained=True active=61.3698033769997 thr=1401.6013620183319 J/tok=0.17841124906994046 hits=0.0 wall=165.2s phase=9992s
+== cell 52/56: r4-n4s-c128
+[r4-n4s-c128] keep contained=True active=61.81010109700037 thr=1391.6172029068941 J/tok=0.17884884207589286 hits=0.0 wall=165.2s phase=10157s
+== cell 53/56: r4-n8u-c128
+[r4-n8u-c128] keep contained=True active=64.3067177920002 thr=1337.5896477599492 J/tok=0.18174676804315476 hits=0.0 wall=165.2s phase=10322s
+== cell 54/56: r4-n8s-c128
+[r4-n8s-c128] keep contained=True active=64.68951708299937 thr=1329.6744801733155 J/tok=0.18212061709449406 hits=0.0 wall=165.2s phase=10487s
+== cell 55/56: r4-n1u-c64
+[r4-n1u-c64] keep contained=True active=87.02044435599964 thr=988.4573750061483 J/tok=0.2411299525669643 hits=0.0 wall=216.2s phase=10703s
+== cell 56/56: r4-n2u-c64
+[r4-n2u-c64] keep contained=True active=88.04817969499891 thr=976.9196853127637 J/tok=0.2420282505580357 hits=0.0 wall=216.2s phase=10920s
+[d8-end] idle power 56.54441666666666 W (energy 3392665 mJ in 60 s, mean 57048 mW)
+
+== CAMPAIGN SUMMARY
+idle power (W): {'start': 57.08225, 'middle': 57.611200000000004, 'end': 56.54441666666666} | used: 57.07928888888889 | spread: 0.018689499363069354
+n1u-c128 j_per_token: n=4 mean=0.17695475260416665 band=0.005211570376074092 | j_per_token_idle_corrected: n=4 mean=0.10774850801207557 band=0.014450186375238925 | s_per_token: n=4 mean=0.0007057896952485535 band=0.04787223671782405
+n2s-c128 j_per_token: n=4 mean=0.17769286818731397 band=0.0037148916203433254 | j_per_token_idle_corrected: n=4 mean=0.10836528949401128 band=0.007282458245789651 | s_per_token: n=4 mean=0.0007036639837413938 band=0.003213173319217225
+n2u-c128 j_per_token: n=4 mean=0.17735164969308034 band=0.003304145350406131 | j_per_token_idle_corrected: n=4 mean=0.107805853024727 band=0.006044108526043927 | s_per_token: n=4 mean=0.0006998409162277913 band=0.0016420656392488887
+n4s-c128 j_per_token: n=4 mean=0.17919408598400297 band=0.003209706571003613 | j_per_token_idle_corrected: n=4 mean=0.11079094063719144 band=0.006132981908543193 | s_per_token: n=4 mean=0.000719859584010533 band=0.002538835541424092
+n4u-c128 j_per_token: n=4 mean=0.17880484735398067 band=0.003700241372316909 | j_per_token_idle_corrected: n=4 mean=0.11012571892909688 band=0.007182045619336096 | s_per_token: n=4 mean=0.0007150245013834617 band=0.003168268886689966
+n8s-c128 j_per_token: n=4 mean=0.18224643961588544 band=0.002571683960046358 | j_per_token_idle_corrected: n=4 mean=0.11571440555943266 band=0.004276311043134588 | s_per_token: n=4 mean=0.0007526404985380615 band=0.0012610566152475794
+n8u-c128 j_per_token: n=4 mean=0.1820841267903646 band=0.003444610479919342 | j_per_token_idle_corrected: n=4 mean=0.1153403792572433 band=0.0067088807097620265 | s_per_token: n=4 mean=0.0007489313865152989 band=0.0034292677788004176
+n1u-c64 j_per_token: n=4 mean=0.24136456298828124 band=0.002478130584293726 | j_per_token_idle_corrected: n=4 mean=0.15581178275377058 band=0.005024131900441808 | s_per_token: n=4 mean=0.0010123196828031999 band=0.005001164306825996
+n2s-c64 j_per_token: n=4 mean=0.24209204973493303 band=0.007082236315798395 | j_per_token_idle_corrected: n=4 mean=0.1569786624006943 band=0.017489690014960566 | s_per_token: n=4 mean=0.0010200176220877492 band=0.01770734694058733
+n2u-c64 j_per_token: n=4 mean=0.24194921875 band=0.003833168424540379 | j_per_token_idle_corrected: n=4 mean=0.15680763580681642 band=0.009467353597342293 | s_per_token: n=4 mean=0.001019523649414058 band=0.009630323139418914
+n4s-c64 j_per_token: n=4 mean=0.24279808117094492 band=0.007994916904900416 | j_per_token_idle_corrected: n=4 mean=0.15811590848248006 band=0.020129821726476916 | s_per_token: n=4 mean=0.0010275722825288287 band=0.021170145627785575
+n4u-c64 j_per_token: n=4 mean=0.24234144810267857 band=0.004906779206497067 | j_per_token_idle_corrected: n=4 mean=0.1573892970480023 band=0.01020654435932344 | s_per_token: n=4 mean=0.0010228423993879064 band=0.008671696727585592
+n8s-c64 j_per_token: n=4 mean=0.24726833670479909 band=0.0029035170181042646 | j_per_token_idle_corrected: n=4 mean=0.1653011825775295 band=0.0051464300757840045 | s_per_token: n=4 mean=0.0010751380215919127 band=0.0035055917058697053
+n8u-c64 j_per_token: n=4 mean=0.24715211704799106 band=0.0030839591436799827 | j_per_token_idle_corrected: n=4 mean=0.16509335953556964 band=0.0062329792180232275 | s_per_token: n=4 mean=0.0010735331770513625 band=0.004354302264731008
+margin n2u-c128 vs n1u: {'j_per_token': 0.002242929805912111, 'j_per_token_idle_corrected': 0.0005322116631536931, 's_per_token': -0.008428543319362592}
+margin n2s-c128 vs n1u: {'j_per_token': 0.004171210845059494, 'j_per_token_idle_corrected': 0.005724269350129531, 's_per_token': -0.003011819981887211}
+margin n4u-c128 vs n1u: {'j_per_token': 0.010455185422188259, 'j_per_token_idle_corrected': 0.022062587787803914, 's_per_token': 0.013084359543753499}
+margin n4s-c128 vs n1u: {'j_per_token': 0.01265483603509377, 'j_per_token_idle_corrected': 0.028236424626639865, 's_per_token': 0.019934959176507387}
+margin n8u-c128 vs n1u: {'j_per_token': 0.02898692524903205, 'j_per_token_idle_corrected': 0.07045917744231688, 's_per_token': 0.06112541959337126}
+margin n8s-c128 vs n1u: {'j_per_token': 0.02990418134491055, 'j_per_token_idle_corrected': 0.07393046729207924, 's_per_token': 0.06638068479167702}
+margin n2u-c64 vs n1u: {'j_per_token': 0.0024222932914437284, 'j_per_token_idle_corrected': 0.00639138475566757, 's_per_token': 0.007116296100170345}
+margin n2s-c64 vs n1u: {'j_per_token': 0.003014057812153296, 'j_per_token_idle_corrected': 0.007489033411341804, 's_per_token': 0.007604257247308539}
+margin n4u-c64 vs n1u: {'j_per_token': 0.004047342751159231, 'j_per_token_idle_corrected': 0.010124486520539148, 's_per_token': 0.010394657699006904}
+margin n4s-c64 vs n1u: {'j_per_token': 0.005939223906424427, 'j_per_token_idle_corrected': 0.014787878605757837, 's_per_token': 0.015066979319608901}
+margin n8u-c64 vs n1u: {'j_per_token': 0.023978474669418718, 'j_per_token_idle_corrected': 0.05956915849211953, 's_per_token': 0.060468541003428126}
+margin n8s-c64 vs n1u: {'j_per_token': 0.024459985523245544, 'j_per_token_idle_corrected': 0.06090296674645592, 's_per_token': 0.06205385497866001}
+cells not run: none
+CAMPAIGN COMPLETED in 10980 s

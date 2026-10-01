@@ -1,0 +1,14 @@
+vllm serve started, PID 4186
+ready in 110 s; models: ['Qwen/Qwen2.5-7B-Instruct', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8']
+PID cmdline: /home/ubuntu/lora-run/venv/bin/python3 /home/ubuntu/lora-run/venv/bin/vllm serve Qwen/Qwen2.5-7B-Instruct --revision a09a35458c702b33eeacc393d103063234e8bc28 --
+children (file): [4320, 4321] | children (ps --ppid): [4320, 4321]
+  child 4320: /home/ubuntu/lora-run/venv/bin/python3 -c from multiprocessing.resource_tracker import main;main(46) | grandchildren: []
+  child 4321: VLLM::EngineCore | grandchildren: []
+GPU processes: 4321, VLLM::EngineCore, 21322 MiB
+prefix_cache_hits_total: 0.0
+inferscope --gpu 3 s: energy_millijoules 162628 | energy_source counter
+D1 from the log:
+  (EngineCore pid=4321) INFO 09-30 19:48:13 [gpu_worker.py:640] Available KV cache memory: 4.81 GiB
+  (EngineCore pid=4321) INFO 09-30 19:48:13 [kv_cache_utils.py:2395] GPU KV cache size: 89,968 tokens, Maximum concurrency for 512 tokens per request: 175.72x
+GPU memory: 21333 MiB, 23028 MiB
+PHASE2 OK

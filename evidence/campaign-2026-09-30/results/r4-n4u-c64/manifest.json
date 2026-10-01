@@ -1,0 +1,141 @@
+{
+ "schema": "lora-cell/1",
+ "cell": {
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "adapters": [
+   "a1",
+   "a2",
+   "a3",
+   "a4"
+  ],
+  "weights": [
+   1,
+   1,
+   1,
+   1
+  ],
+  "lora_modules_as_passed": [
+   "a1",
+   "a2",
+   "a3",
+   "a4"
+  ],
+  "num_prompts": 336,
+  "max_concurrency": 64,
+  "input_len": 256,
+  "output_len": 256,
+  "window_secs": 216,
+  "seed": 3460,
+  "server_pid": 4186,
+  "tokenizer": "/home/ubuntu/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28"
+ },
+ "commands": {
+  "measure": [
+   "/home/ubuntu/lora-node-bundle/inferscope",
+   "--sample-only",
+   "--pid",
+   "4186",
+   "--include-descendants",
+   "--duration-secs",
+   "216",
+   "--metrics-endpoint",
+   "http://127.0.0.1:8000/metrics",
+   "--engine",
+   "vllm",
+   "--model",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "--json",
+   "--gpu"
+  ],
+  "load": [
+   "/home/ubuntu/lora-run/venv/bin/vllm",
+   "bench",
+   "serve",
+   "--backend",
+   "openai",
+   "--base-url",
+   "http://127.0.0.1:8000",
+   "--endpoint",
+   "/v1/completions",
+   "--model",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "--tokenizer",
+   "/home/ubuntu/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
+   "--dataset-name",
+   "random",
+   "--num-prompts",
+   "336",
+   "--random-input-len",
+   "256",
+   "--random-output-len",
+   "256",
+   "--max-concurrency",
+   "64",
+   "--ignore-eos",
+   "--seed",
+   "3460",
+   "--lora-modules",
+   "a1",
+   "a2",
+   "a3",
+   "a4",
+   "--lora-assignment",
+   "round-robin",
+   "--save-result",
+   "--save-detailed",
+   "--result-dir",
+   "/home/ubuntu/lora-run/results/r4-n4u-c64",
+   "--result-filename",
+   "load.json"
+  ]
+ },
+ "timing_s": {
+  "server_wait": 0.068,
+  "load_started_after_measure": 0.0,
+  "load_finished": 96.906,
+  "measure_finished": 216.037,
+  "measure_alive_at_load_end": true,
+  "load_process": 96.905,
+  "active_reported_by_benchmark": 87.81767415300055,
+  "preamble": 9.088
+ },
+ "exit_codes": {
+  "measure": 0,
+  "load": 0
+ },
+ "gpu": {
+  "required": true,
+  "energy_millijoules": 20794284,
+  "energy_source": "counter"
+ },
+ "prefix_cache_hits_in_cell": 0.0,
+ "tokenizer_mismatch": false,
+ "prompt_lengths": {
+  "expected": 256,
+  "recorded": 336,
+  "off_target": 0,
+  "exact": true
+ },
+ "containment": {
+  "load_inside_window": true,
+  "no_request_fraction_of_window": 0.5934
+ },
+ "load_summary": {
+  "completed": 336,
+  "failed": 0,
+  "total_output_tokens": 86016,
+  "output_throughput": 979.483923135318,
+  "mean_ttft_ms": 1401.7980814375103,
+  "mean_itl_ms": 53.70315412755607
+ },
+ "lora_observation": {
+  "latest": {
+   "series": {
+    "running_lora_adapters": [],
+    "waiting_lora_adapters": [],
+    "max_lora": 8,
+    "value": 1790806558.9246464
+   }
+  }
+ }
+}

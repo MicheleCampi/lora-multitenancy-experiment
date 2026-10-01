@@ -47,3 +47,9 @@ recomputed.
 
 A node rented for the second dry run on which vLLM could not start: the GPU
 reported an uncorrectable ECC error.
+
+## `campaign-2026-09-30/`
+
+The campaign, on one NVIDIA A10 on 2026-09-30: 56 cells judged by the
+amendments of 2026-09-29 at the end of `PROTOCOL.md`. Its own README says
+what is there, where it comes from and how the figures are recomputed.
