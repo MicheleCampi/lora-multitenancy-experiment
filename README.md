@@ -51,14 +51,31 @@ maintainer reply, marked stale — has an empirical answer.
 
 ## Status
 
-**Protocol only. No harness, no node booked, no data.**
+**Measured.** The campaign ran on 2026-09-30 on one NVIDIA A10: 56
+cells, all kept.
+
+- Serving eight adapters costs more per generated token than serving
+  one: +7.05% energy net of idle at concurrency 128 and +5.96% at 64. H1
+  is not falsified.
+- At two, four and eight adapters, sending 75% of the requests to one
+  adapter changes that cost by +0.11% to +0.60% against an even split,
+  inside the band of repetitions at every level. H2 is falsified.
+
+For cost per token, on this configuration, the answer is the second of
+the two above.
+
+[`RESULTS.md`](RESULTS.md) gives the judgements, what they rest on and
+what they do not show. The files are in
+[`evidence/campaign-2026-09-30/`](evidence/campaign-2026-09-30/), and
+`harness/analyze.py` recomputes every judgement from them.
 
 [`PROTOCOL.md`](PROTOCOL.md) was committed before any measurement
 existed, which is the point of committing it first. It carries two
 hypotheses with the result that would falsify each, a threshold fixed in
 advance with its own limit declared, response variables named in the
 field's own vocabulary, and invariants each justified by the source line
-behind it.
+behind it. The rules the campaign is judged by were added to it on
+2026-09-29, as dated amendments, before the campaign's first cell.
 
 ## What this is not
 
