@@ -688,3 +688,19 @@ publishes `gguf/` and `merged/`, and the reserve
 revisions, which on 2026-09-30 are still each repository's current one.
 The rule is unchanged: only the two files at the root are downloaded
 (`harness/node/download.py`, line 44), so only they can be loaded.
+
+### A12. What vllm-project/vllm#45325 asks (lines 53-56)
+
+Added on 2026-10-02, after the campaign. Lines 53-56 say that if imbalance
+does not cost, vllm-project/vllm#45325 "has an empirical answer". It does
+not. The issue, read in full on 2026-10-02, asks vLLM to expose which
+adapters are resident in its LoRA caches, on the GPU and on the CPU,
+including adapters with no request in flight, so that a router can tell a
+pod holding an adapter from one that would first have to load it. This
+design holds residency fixed by construction: `--max-loras 8` and
+`--max-cpu-loras 8`, with never more than eight adapters, so the eviction
+path never runs (lines 171-182). What the campaign answers is whether the
+per-adapter request counts that `vllm:lora_requests_info` drops would tell
+two pods apart by cost per token; it says nothing about what loading an
+adapter costs, which is the issue's question. The text above is left as it
+was written.

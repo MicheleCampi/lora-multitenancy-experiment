@@ -46,8 +46,7 @@ a dimension it cannot see, and its own comment already marks where a fix
 belongs: "This may change later if vLLM adds native support".
 
 **If imbalance does not cost**, three independent components were right
-to drop the signal, and vllm-project/vllm#45325 — open since June, no
-maintainer reply, marked stale — has an empirical answer.
+to drop the signal.
 
 ## Status
 
