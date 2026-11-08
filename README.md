@@ -7,11 +7,11 @@ decision is made.
 
 | Where | What happens | Line |
 |---|---|---|
-| vLLM computes it | `running_lora_adapters[name] = len(stats.running)` | `vllm/v1/metrics/stats.py:644` |
-| vLLM drops it | `",".join(...keys())` keeps only the names | `vllm/v1/metrics/loggers.py:1100` |
-| the router stores zeros | `m[trimmed] = 0` into a `map[string]int` | `extractor.go:312` |
-| the scorer discards even that | `_, active := m.ActiveModels[...]` | `lora_affinity.go:89` |
-| the simulator repeats it | `maps.Keys(snap.Running)` joined by commas | `pkg/engine/vllm/metrics.go:815` |
+| vLLM computes it | `running_lora_adapters[name] = len(stats.running)` | [`vllm/v1/metrics/stats.py:644`](https://github.com/vllm-project/vllm/blob/27757dde020ecda4f9b0e2c5ca2df1c29badc82f/vllm/v1/metrics/stats.py#L644) |
+| vLLM drops it | `",".join(...keys())` keeps only the names | [`vllm/v1/metrics/loggers.py:1100`](https://github.com/vllm-project/vllm/blob/27757dde020ecda4f9b0e2c5ca2df1c29badc82f/vllm/v1/metrics/loggers.py#L1100) |
+| the router stores zeros | `m[trimmed] = 0` into a `map[string]int` | [`extractor.go:312`](https://github.com/llm-d/llm-d-router/blob/5367d0541678e51cc57a78908fc296afa13daaa7/pkg/epp/framework/plugins/datalayer/extractor/metrics/extractor.go#L312) |
+| the scorer discards even that | `_, active := m.ActiveModels[...]` | [`lora_affinity.go:89`](https://github.com/llm-d/llm-d-router/blob/5367d0541678e51cc57a78908fc296afa13daaa7/pkg/epp/framework/plugins/scheduling/scorer/loraaffinity/lora_affinity.go#L89) |
+| the simulator repeats it | `maps.Keys(snap.Running)` joined by commas | [`pkg/engine/vllm/metrics.go:815`](https://github.com/llm-d/llm-d-inference-sim/blob/e92468332621e8ed1460350ae9f273ac9b741487/pkg/engine/vllm/metrics.go#L815) |
 
 vLLM at `27757dde02`, llm-d-router at `5367d054`, llm-d-inference-sim at
 `e924683`, all read 2026-09-20.
@@ -19,6 +19,13 @@ vLLM at `27757dde02`, llm-d-router at `5367d054`, llm-d-inference-sim at
 Three projects, two languages, three teams. Each holds the per-adapter
 counts internally and each drops them at the same step — so a router
 developed against the simulator cannot see them even in development.
+
+**Measured answer** (one NVIDIA A10, 56 cells, 2026-09-30; [`RESULTS.md`](RESULTS.md)):
+on this configuration the blindness does not cost. Sending 75% of the
+requests to one adapter changes the cost per generated token by +0.11% to
++0.60% against an even split, inside the band of repetitions. What moves
+it is the number of adapters: eight instead of one cost +7.05% energy net
+of idle at concurrency 128 and +5.96% at 64.
 
 ## Reproduce the premise in a minute
 
